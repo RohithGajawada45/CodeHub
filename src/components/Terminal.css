@@ -1,18 +1,19 @@
 .terminal {
-    height: 300px;
+    height: 500px;
     overflow-y: auto;
-    background-color: white; /* White background for visibility */
-    color: black; /* Black text color */
+    background-color: #2D2D2D; /* Dark terminal background */
+    color: #C4C4C4; /* Light gray text */
     padding: 20px;
     font-size: 14px;
     line-height: 1.42;
     font-family: 'IBM Plex Mono', Consolas, Menlo, Monaco, 'Courier New', Courier, monospace;
     border-radius: 5px;
-    border: 1px solid #ddd;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   }
   
   .terminal-history {
     margin-bottom: 10px;
+    white-space: pre-wrap; /* Allows for multi-line command outputs */
   }
   
   .terminal-prompt {
@@ -21,8 +22,7 @@
   }
   
   .terminal-prompt-label {
-    flex: 0 0 auto;
-    color: #333;
+    color: #33FF33; /* Green color typical for terminal prompts */
     margin-right: 10px;
   }
   
@@ -33,12 +33,16 @@
   .terminal-prompt-input input {
     width: 100%;
     background-color: transparent;
-    color: black;
-    border: 1px solid #ddd;
+    color: #C4C4C4; /* Light gray text for input */
+    border: none;
     outline: none;
     padding: 5px;
-    border-radius: 3px;
     font-size: 14px;
     font-family: 'IBM Plex Mono', Consolas, Menlo, Monaco, 'Courier New', Courier, monospace;
+  }
+  
+  .terminal-prompt-input input::placeholder {
+    color: #C4C4C4; /* Placeholder color matching text */
+    opacity: 0.5;
   }
   

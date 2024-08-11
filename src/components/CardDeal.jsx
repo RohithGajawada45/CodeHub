@@ -59,15 +59,13 @@ const TerminalIntegration = () => {
       </div>
 
       <div className={layout.sectionImg}>
-  <Terminal
-    history={history}
-    ref={setTerminalRef}
-    promptLabel={<>Write something awesome:</>}
-    commands={commands}
-    style={{ backgroundColor: 'white', color: 'black', padding: '20px', borderRadius: '5px' }}
-  />
-</div>
-
+        <Terminal
+          history={history}
+          ref={setTerminalRef}
+          promptLabel={<>Write something awesome:</>}
+          commands={commands}
+        />
+      </div>
     </section>
   );
 };

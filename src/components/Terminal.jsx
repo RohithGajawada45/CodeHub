@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
-import './Terminal.css'; // Add your CSS file for styling
+import './Terminal.css';
 
 const Terminal = forwardRef(({ history, promptLabel, commands }, ref) => {
   const terminalRef = useRef(null);
@@ -27,18 +27,21 @@ const Terminal = forwardRef(({ history, promptLabel, commands }, ref) => {
   };
 
   return (
-    <div className="terminal-container">
+    <div className="terminal">
       <div className="terminal-history">
         {history}
       </div>
-      <input
-        type="text"
-        className="terminal-input"
-        onKeyDown={handleKeyDown}
-        ref={terminalRef}
-        placeholder="Type your command..."
-      />
-      <div className="terminal-prompt">{promptLabel}</div>
+      <div className="terminal-prompt">
+        <div className="terminal-prompt-label">{promptLabel}</div>
+        <div className="terminal-prompt-input">
+          <input
+            type="text"
+            onKeyDown={handleKeyDown}
+            ref={terminalRef}
+            placeholder="Type your command..."
+          />
+        </div>
+      </div>
     </div>
   );
 });

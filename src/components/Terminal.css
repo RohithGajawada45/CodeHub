@@ -1,32 +1,44 @@
-.terminal-container {
-    background-color: white; /* White background */
+.terminal {
+    height: 300px;
+    overflow-y: auto;
+    background-color: white; /* White background for visibility */
     color: black; /* Black text color */
     padding: 20px;
+    font-size: 14px;
+    line-height: 1.42;
+    font-family: 'IBM Plex Mono', Consolas, Menlo, Monaco, 'Courier New', Courier, monospace;
     border-radius: 5px;
-    font-family: monospace; /* Terminal-like font */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    border: 1px solid #ddd;
   }
   
   .terminal-history {
     margin-bottom: 10px;
-    max-height: 200px;
-    overflow-y: auto; /* Scroll if history exceeds the max height */
-  }
-  
-  .terminal-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    color: black; /* Ensure text input color is black */
-    background-color: white; /* Ensure input background is white */
-    outline: none;
-    font-family: monospace;
   }
   
   .terminal-prompt {
-    margin-top: 10px;
-    font-weight: bold;
-    color: black; /* Ensure prompt label is also black */
+    display: flex;
+    align-items: center;
+  }
+  
+  .terminal-prompt-label {
+    flex: 0 0 auto;
+    color: #333;
+    margin-right: 10px;
+  }
+  
+  .terminal-prompt-input {
+    flex: 1;
+  }
+  
+  .terminal-prompt-input input {
+    width: 100%;
+    background-color: transparent;
+    color: black;
+    border: 1px solid #ddd;
+    outline: none;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: 'IBM Plex Mono', Consolas, Menlo, Monaco, 'Courier New', Courier, monospace;
   }
   

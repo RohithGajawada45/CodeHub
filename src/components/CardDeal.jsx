@@ -16,8 +16,8 @@ const TerminalIntegration = () => {
     resetTerminal();
 
     pushToHistory(<>
-      <div><strong>Welcome!</strong> to the terminal.</div>
-      <div style={{fontSize: 20}}>It contains <span style={{color: 'yellow'}}><strong>HTML</strong></span>. Awesome, right?</div>
+      <div><strong>Welcome!</strong> to the CodeHub terminal.</div>
+      <div className="stylish-text">Learn Git Server Creation. Awesome, right?</div>
       <br/>
       <div>You can write: start or alert, to execute some commands.</div>
     </>);

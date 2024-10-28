@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PaymentModal from './PaymentModal';
+import './PaymentModal.css';
 
 function Team() {
     const [teamSize, setTeamSize] = useState(1);
+    const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
     const basePricePerMember = 10;
     const navigate = useNavigate();
 
@@ -12,7 +15,13 @@ function Team() {
     };
 
     const handlePayment = () => {
-        alert(`Proceeding to payment for ${teamSize * basePricePerMember} USD`);
+        setIsPaymentModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsPaymentModalOpen(false);
+        // Redirect or any further actions after payment
+        navigate('/success'); // Example redirection after payment
     };
 
     return (
@@ -21,7 +30,7 @@ function Team() {
 
             <div className="bg-[#ffffff] p-8 rounded-lg shadow-lg max-w-md w-full">
                 <div className="mb-4">
-                <label htmlFor="teamSize" className="font-bold text-lg mb-2 block text-black">Enter Team Size:</label>
+                    <label htmlFor="teamSize" className="font-bold text-lg mb-2 block text-black">Enter Team Size:</label>
                     <input
                         type="number"
                         id="teamSize"
@@ -44,6 +53,9 @@ function Team() {
                     Pay Now
                 </button>
             </div>
+
+            {/* Payment Modal */}
+            <PaymentModal isOpen={isPaymentModalOpen} onClose={closeModal} />
         </section>
     );
 }

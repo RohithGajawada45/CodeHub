@@ -15,6 +15,17 @@ const Learn = () => {
         }
     };
 
+    // Copy code to clipboard function
+    const copyToClipboard = (code) => {
+        navigator.clipboard.writeText(code)
+            .then(() => {
+                alert('Code copied to clipboard!');
+            })
+            .catch((err) => {
+                console.error('Failed to copy: ', err);
+            });
+    };
+
     return (
         <div className="flex min-h-screen bg-gradient-to-r from-blue-1000 to-blue-1000">
             <nav className="w-1/4 bg-[#0d0d2b] text-gray-800 shadow-lg p-6 rounded-lg">
@@ -129,8 +140,9 @@ const Learn = () => {
                     <p className="mb-4">
                         To create an SSH key under Linux (or Windows/Mac with OpenSSH installed), switch to the command line and execute the following commands. The generated SSH key is by default located in the .ssh directory of the user home directory. Ensure that you back up existing keys in this directory before running the following commands.
                     </p>
-                    <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto shadow-inner">
-                        {`# Switch to your .ssh directory
+                    <div className="relative mb-4">
+                        <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto shadow-inner">
+                            {`# Switch to your .ssh directory
 cd ~/.ssh
 
 # If the directory does not exist, create it via:
@@ -145,13 +157,22 @@ ssh-keygen -t rsa -b 4096 -C "your_email@youremail.com"
 # You will be prompted for an optional passphrase
 # A passphrase protects your private key
 # but you have to enter it manually during ssh operations`}
-                    </pre>
+                        </pre>
+                        <button
+                            onClick={() => copyToClipboard(`# Switch to your .ssh directory\ncd ~/.ssh\n\n# If the directory does not exist, create it via:\n# mkdir .ssh\n\n# Manually backup all existing content of this dir!!!\n\n# Afterwards generate the ssh key\nssh-keygen -t rsa -b 4096 -C "your_email@youremail.com"\n\n# Press enter to select the default directory\n# You will be prompted for an optional passphrase\n# A passphrase protects your private key\n# but you have to enter it manually during ssh operations`)}
+                            className="absolute top-3 right-3 bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
+                        >
+                            Copy
+                        </button>
+                    </div>
+
+                    <h3 className="font-semibold mt-4">2.3. Add SSH key to your Git hosting provider</h3>
                     <p className="mb-4">
-                        The Eclipse IDE allows you to create an SSH key pair via <em>Window → Preferences → General → Network Connection → SSH2</em>. It is good practice to use a passphrase to protect your private key. It is also good practice to use operating system-level permission settings to ensure that only the owning user can access the ~/.ssh folder and its content.
+                        After generating the SSH key pair, you must add the public key to your Git hosting provider's settings. This process may vary slightly depending on the provider.
                     </p>
                 </section>
 
-                <section className="mb-8" ref={ownGitServerRef} id="own-git-server">
+                <section className="mb-8" ref={bitbucketRef} id="bitbucket">
                     <h3 className="text-2xl font-semibold mt-6 mb-2 text-blue-600">3. Bitbucket</h3>
                     <h4 className="font-semibold mt-4" id="what-bitbucket">3.1. What is Bitbucket?</h4>
                     <p className="mb-4">
@@ -170,8 +191,9 @@ ssh-keygen -t rsa -b 4096 -C "your_email@youremail.com"
                     <p className="mb-4">
                         As described before, you do not need a server. You can just use a file system or a public Git provider, such as GitHub or Bitbucket. Sometimes, however, it is convenient to have your own server, and installing it under Ubuntu is relatively easy.
                     </p>
-                    <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto shadow-inner">
-                        {`# Make sure you have installed the SSH tooling.
+                    <div className="relative mb-4">
+                        <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto shadow-inner">
+                            {`# Make sure you have installed the SSH tooling.
 sudo apt-get install ssh
 
 # If you have not yet installed Git on your server, you need to do this too.
@@ -186,12 +208,20 @@ ssh git@IP_ADDRESS_OF_SERVER
 
 # Create repository
 git init --bare example.git`}
-                    </pre>
+                        </pre>
+                        <button
+                            onClick={() => copyToClipboard(`# Make sure you have installed the SSH tooling.\nsudo apt-get install ssh\n\n# If you have not yet installed Git on your server, you need to do this too.\nsudo apt-get install git-core\n\n# Create a new user and set a password for the Git system.\nsudo adduser git\n\n# Login to server\n# to test use localhost\nssh git@IP_ADDRESS_OF_SERVER\n\n# Create repository\ngit init --bare example.git`)}
+                            className="absolute top-3 right-3 bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
+                        >
+                            Copy
+                        </button>
+                    </div>
                     <p className="mb-4">
                         Now you can push to the remote repository.
                     </p>
-                    <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto shadow-inner">
-                        {`mkdir gitexample
+                    <div className="relative mb-4">
+                        <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto shadow-inner">
+                            {`mkdir gitexample
 cd gitexample
 git init
 touch README
@@ -199,16 +229,32 @@ git add README
 git commit -m "initial commit"
 git remote add origin ssh://git@YOUR_IP/example.git
 git push -u origin master`}
-                    </pre>
+                        </pre>
+                        <button
+                            onClick={() => copyToClipboard(`mkdir gitexample\ncd gitexample\ngit init\ntouch README\ngit add README\ngit commit -m "initial commit"\ngit remote add origin ssh://git@YOUR_IP/example.git\ngit push -u origin master`)}
+                            className="absolute top-3 right-3 bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
+                        >
+                            Copy
+                        </button>
+                    </div>
 
                     <h4 className="font-semibold mt-4" id="write-access">4.2. Give write access to a Git repository</h4>
                     <p className="mb-4">
                         Once you have set up the repository, you will also want to allow others to write to this repository. The easiest way to do this is to give a user permission to write to the Git repository.
                     </p>
-                    <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto shadow-inner">
-                        {`# Change the ownership of the directory to the git user
+                    <div className="relative mb-4">
+                        <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto shadow-inner">
+                            {`# Change the ownership of the directory to the git user
 sudo chown -R git:git /path/to/repo.git`}
-                    </pre>
+                        </pre>
+                        <button
+                            onClick={() => copyToClipboard(`# Change the ownership of the directory to the git user\nsudo chown -R git:git /path/to/repo.git`)}
+                            className="absolute top-3 right-3 bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
+                        >
+                            Copy
+                        </button>
+                    </div>
+                    
                     <h4 className="font-semibold mt-4" id="security-setup">4.3. Security setup for the git user</h4>
                     <p className="mb-4">
                         The Git user can have a shell assigned to it. For increased security, the shell <code>/usr/bin/git-shell</code> can be assigned to the Git user via the <code>/etc/passwd</code> configuration file. If you assign this shell to the Git user, this user can also perform Git commands, which adds safety to your Git setup.
@@ -230,9 +276,6 @@ sudo chown -R git:git /path/to/repo.git`}
                         <li>Maven code examples</li>
                         <li>JUnit / Java testing code examples</li>
                     </ul>
-                    <p>
-                        If you need more assistance, we offer Online Training and Onsite training as well as consulting. See the License for license information.
-                    </p>
                 </section>
             </main>
         </div>

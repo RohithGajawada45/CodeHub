@@ -1,28 +1,25 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PaymentModal from './PaymentModal';
 import './PaymentModal.css';
 
 function Team() {
     const [teamSize, setTeamSize] = useState(1);
     const [instanceType, setInstanceType] = useState("t2.micro");
     const [durationInHours, setDurationInHours] = useState(1);
-    const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
     const navigate = useNavigate();
 
     // Conversion rate from USD to INR
-    const conversionRate = 83; // Example rate, update to the latest
+    const conversionRate = 83;
 
     // Base prices per instance type (example prices, update as per AWS pricing)
     const instancePrices = {
-        "t2.micro": 0.099, // per hour
+        "t2.micro": 0.099,
         "t2.medium": 0.1464,
         "m5.large": 0.296,
     };
 
     const handleTeamSizeChange = (e) => {
-        const size = Math.max(1, parseInt(e.target.value) || 1);
-        setTeamSize(size);
+        setTeamSize(Math.max(1, parseInt(e.target.value) || 1));
     };
 
     const handleInstanceTypeChange = (e) => {
@@ -30,24 +27,58 @@ function Team() {
     };
 
     const handleDurationChange = (e) => {
-        const duration = Math.max(1, parseInt(e.target.value) || 1);
-        setDurationInHours(duration);
+        setDurationInHours(Math.max(1, parseInt(e.target.value) || 1));
     };
 
-    const handlePayment = () => {
-        setIsPaymentModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsPaymentModalOpen(false);
-        navigate('/success'); // Example redirection after payment
-    };
-
-    // Calculate total price in USD
+    // Calculate total price in USD and INR
     const totalPriceUSD = teamSize * instancePrices[instanceType] * durationInHours;
-    // Convert total price to INR
     const totalPriceINR = totalPriceUSD * conversionRate;
 
+    // Load Razorpay script
+    const loadScript = (src) => {
+        return new Promise((resolve) => {
+            const script = document.createElement("script");
+            script.src = src;
+            script.onload = () => resolve(true);
+            script.onerror = () => resolve(false);
+            document.body.appendChild(script);
+        });
+    };
+
+    const handlePayment = async () => {
+        const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+    
+        if (!res) {
+            alert("Razorpay SDK failed to load. Are you online?");
+            return;
+        }
+    
+        const amountInPaisa = Math.round(totalPriceINR * 100); // Convert INR to paisa
+    
+        const options = {
+            key: "rzp_test_GcZZFDPP0jHtC4", // Use your Razorpay test key
+            amount: amountInPaisa, // Amount in paisa
+            currency: "INR",
+            name: "Team Pricing Payment",
+            description: "Payment for Team Pricing Plan",
+            handler: function (response) {
+                alert(`Payment ID: ${response.razorpay_payment_id}`);
+                navigate('/success'); // Redirect on successful payment
+            },
+            prefill: {
+                name: "Customer Name",
+                email: "customer@example.com",
+                contact: "9876543210",
+            },
+            theme: {
+                color: "#3399cc",
+            },
+        };
+    
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+    };
+    
     return (
         <section className="flex flex-col items-center justify-center min-h-screen bg-primary w-full p-8">
             <h2 className="text-secondary font-semibold text-4xl mb-6 text-center">Team Pricing Calculator</h2>
@@ -73,7 +104,7 @@ function Team() {
                         onChange={handleInstanceTypeChange}
                         className="p-2 rounded border border-gray-300 w-full"
                     >
-                        <option value="t2.micro">t2.micro - $0.09/hour</option>
+                        <option value="t2.micro">t2.micro - $0.099/hour</option>
                         <option value="t2.medium">t2.medium - $0.1464/hour</option>
                         <option value="m5.large">m5.large - $0.296/hour</option>
                     </select>
@@ -104,9 +135,6 @@ function Team() {
                     Pay Now
                 </button>
             </div>
-
-            {/* Payment Modal */}
-            <PaymentModal isOpen={isPaymentModalOpen} onClose={closeModal} />
         </section>
     );
 }

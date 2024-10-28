@@ -29,29 +29,29 @@ const tutorials = [
     },
 ];
 
-const Learn = () => {
+const LearningPortal = () => {
     return (
         <div className="flex min-h-screen bg-gray-100">
             {/* Sidebar */}
-            <nav className="w-1/4 bg-blue-200 shadow-lg p-5">
+            <nav className="w-1/4 bg-blue-gradient text-white shadow-lg p-5"> {/* Changed background color to blue */}
                 <h2 className="text-xl font-bold mb-4">Learning Portal</h2>
                 <ul>
                     {tutorials.map((tutorial, index) => (
                         <li key={index} className="mb-2">
                             <a
                                 href={tutorial.link}
-                                className="text-blue-600 hover:underline"
+                                className="text-white hover:underline"
                             >
                                 {tutorial.title}
                             </a>
-                            <p className="text-gray-600 text-sm">{tutorial.description}</p>
+                            <p className="text-gray-200 text-sm">{tutorial.description}</p>
                         </li>
                     ))}
                 </ul>
             </nav>
 
             {/* Main content */}
-            <main className="flex-1 p-8 bg-white-50">
+            <main className="flex-1 p-8 bg-gray-50">
                 <h1 className="text-3xl font-semibold mb-4">Welcome to the Learning Portal</h1>
                 <p className="text-lg text-gray-700 mb-6">
                     Explore a variety of tutorials and resources to enhance your web development skills.
@@ -62,12 +62,14 @@ const Learn = () => {
                     {tutorials.map((tutorial, index) => (
                         <div
                             key={index}
-                            className="bg-white p-4 rounded-lg shadow transition-transform transform hover:scale-105">
+                            className="bg-white p-4 rounded-lg shadow transition-transform transform hover:scale-105"
+                        >
                             <h3 className="text-xl font-semibold mb-2">{tutorial.title}</h3>
                             <p className="text-gray-600">{tutorial.description}</p>
                             <a
                                 href={tutorial.link}
-                                className="mt-3 inline-block bg-blue-600 text-white rounded py-2 px-4 hover:bg-blue-700">
+                                className="mt-3 inline-block bg-blue-600 text-white rounded py-2 px-4 hover:bg-blue-700"
+                            >
                                 Start Learning
                             </a>
                         </div>
@@ -78,4 +80,4 @@ const Learn = () => {
     );
 };
 
-export default Learn;
+export default LearningPortal;

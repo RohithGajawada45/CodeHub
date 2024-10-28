@@ -26,7 +26,14 @@ const FeaturesSection = () => {
   const handleClick = (feature) => {
     if (feature.title === "Create Space") {
       navigate("/team");
-    } else {
+    }
+    
+    else if(feature.title === "Learn Git Server Creation")
+    {
+      navigate("/learn")
+    }
+    
+    else {
       alert(`Navigating to ${feature.title}...`); // Placeholder for other features
     }
   };

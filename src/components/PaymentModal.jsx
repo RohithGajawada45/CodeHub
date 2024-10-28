@@ -15,9 +15,9 @@ function PaymentModal({ isOpen, onClose }) {
                 <div className="payment-section">
                     <h3>Pay With UPI QR</h3>
                     <div className="qr-code">
-                        {/* Replace with actual QR code image */}
-                        <img src="https://via.placeholder.com/150" alt="QR Code" />
-                    </div>
+    <img src="/PhonePe.png" alt="QR Code" />
+</div>
+
                     <p>Scan the QR using any UPI app on your phone.</p>
                     <p className="qr-timer">QR Code is valid for 11:54 minutes</p>
                 </div>

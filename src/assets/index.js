@@ -1,5 +1,5 @@
 import airbnb from "./airbnb.png";
-import stripepic from "./stripepic.png";
+import bill from "./bill.png";
 import binance from "./binance.png";
 import card from "./card.png";
 import coinbase from "./coinbase.png";

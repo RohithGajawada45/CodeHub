@@ -32,9 +32,14 @@ const FeaturesSection = () => {
     {
       navigate("/learn")
     }
+
+    else if(feature.title === "Know About Us")
+    {
+      navigate("/about")
+    }
     
-    else {
-      alert(`Navigating to ${feature.title}...`); // Placeholder for other features
+    else if(feature.title === "Know The Pricing"){
+      navigate("/pricing")
     }
   };
 

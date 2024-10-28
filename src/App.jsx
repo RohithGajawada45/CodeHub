@@ -4,6 +4,8 @@ import styles from "./style";
 import { Billing, Business, CardDeal, Clients, CTA, Footer, Navbar, Stats, Testimonials, Hero ,Team } from "./components";
 import FeaturesSection from "./components/FeaturesSection";
 import Learn from "./components/Learn";
+import About from "./components/About";
+import Pricingpage from "./components/Pricingpage";
 
 const App = () => (
   <Router>
@@ -44,6 +46,8 @@ const App = () => (
         <Route path="/features" element={<FeaturesSection />} />
         <Route path="/team" element={<Team/>}/>
         <Route path="/learn" element={<Learn/>}/>
+        <Route path="/about" element={<About/>}/>
+        <Route path="/pricing" element={<Pricingpage/>}/>
       </Routes>
     </div>
   </Router>

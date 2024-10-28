@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import styles from "./style";
-import { Billing, Business, CardDeal, Clients, CTA, Footer, Navbar, Stats, Testimonials, Hero } from "./components";
+import { Billing, Business, CardDeal, Clients, CTA, Footer, Navbar, Stats, Testimonials, Hero ,Team } from "./components";
 import FeaturesSection from "./components/FeaturesSection";
 
 const App = () => (
@@ -41,6 +41,7 @@ const App = () => (
         />
 
         <Route path="/features" element={<FeaturesSection />} />
+        <Route path="/team" element={<Team/>}/>
       </Routes>
     </div>
   </Router>

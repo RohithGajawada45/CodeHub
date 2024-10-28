@@ -1,25 +1,36 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 
 const features = [
   {
     title: "Create Space",
-    description: "Detailed description of Create dfbsjdbfsdjfjsdd, explaining its benefits and how it enhances productivity.",
+    description: "Detailed description of Create Space, explaining its benefits and how it enhances productivity.",
   },
   {
     title: "Learn Git Server Creation",
-    description: "Detailed description of Create Spaifdjfkdjjkfdce, explaining its benefits and how it enhances productivity.",
+    description: "Detailed description of Learn Git Server Creation, explaining its benefits and how it enhances productivity.",
   },
   {
     title: "Know The Pricing",
-    description: "Detailed description of Create Space, explaining its benefits and how it enhances productivity.",
+    description: "Detailed description of Know The Pricing, explaining its benefits and how it enhances productivity.",
   },
   {
     title: "Know About Us",
-    description: "Detailed description of Create Space, explaining its benefits and how it enhances productivity.",
+    description: "Detailed description of Know About Us, explaining its benefits and how it enhances productivity.",
   },
 ];
 
 const FeaturesSection = () => {
+  const navigate = useNavigate();
+
+  const handleClick = (feature) => {
+    if (feature.title === "Create Space") {
+      navigate("/team");
+    } else {
+      alert(`Navigating to ${feature.title}...`); // Placeholder for other features
+    }
+  };
+
   return (
     <section className="flex flex-col items-center justify-center min-h-screen bg-primary w-full p-8">
       <h1 className="text-secondary font-semibold text-5xl mb-4 text-center">Features</h1>
@@ -32,6 +43,7 @@ const FeaturesSection = () => {
           <div
             key={index}
             className="bg-[#0d0d2b] p-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl border border-white/20"
+            onClick={() => handleClick(feature)}
           >
             <h2 className="text-secondary font-semibold text-2xl mb-3">{feature.title}</h2>
             <p className="text-dimWhite text-base leading-6">{feature.description}</p>

@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Sample tutorial data
 const tutorials = [
     {
         title: "HTML",
@@ -29,18 +28,18 @@ const tutorials = [
     },
 ];
 
-const LearningPortal = () => {
+const Learn = () => {
     return (
         <div className="flex min-h-screen bg-gray-100">
             {/* Sidebar */}
-            <nav className="w-1/4 bg-blue-gradient text-white shadow-lg p-5"> {/* Changed background color to blue */}
+            <nav className="w-1/4 bg-[#0d0d2b] text-white shadow-lg p-5"> {/* Changed background color to blue */}
                 <h2 className="text-xl font-bold mb-4">Learning Portal</h2>
                 <ul>
                     {tutorials.map((tutorial, index) => (
                         <li key={index} className="mb-2">
                             <a
                                 href={tutorial.link}
-                                className="text-white hover:underline"
+                                className="font-bold text-white hover:underline"
                             >
                                 {tutorial.title}
                             </a>
@@ -80,4 +79,4 @@ const LearningPortal = () => {
     );
 };
 
-export default LearningPortal;
+export default Learn;

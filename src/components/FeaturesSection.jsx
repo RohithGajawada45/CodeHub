@@ -3,11 +3,11 @@ import React from "react";
 const features = [
   {
     title: "Create Space",
-    description: "Detailed description of Create Space, explaining its benefits and how it enhances productivity.",
+    description: "Detailed description of Create dfbsjdbfsdjfjsdd, explaining its benefits and how it enhances productivity.",
   },
   {
     title: "Learn Git Server Creation",
-    description: "Detailed description of Create Space, explaining its benefits and how it enhances productivity.",
+    description: "Detailed description of Create Spaifdjfkdjjkfdce, explaining its benefits and how it enhances productivity.",
   },
   {
     title: "Know The Pricing",

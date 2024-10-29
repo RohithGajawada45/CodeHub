@@ -16,8 +16,8 @@ const Hero = () => {
 
         <div className="flex flex-row justify-between items-center w-full">
           <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] text-white ss:leading-[100.8px] leading-[75px]">
-            Master<br className="sm:block hidden" />{" "}
-            <span className="text-gradient">Git Server</span>{" "}
+            Create<br className="sm:block hidden" />{" "}
+            <span className="text-gradient">Your</span>{" "}
           </h1>
           <div className="ss:flex hidden md:mr-4 mr-0">
             <GetStarted />
@@ -25,10 +25,10 @@ const Hero = () => {
         </div>
 
         <h1 className="font-poppins font-semibold ss:text-[68px] text-[52px] text-white ss:leading-[100.8px] leading-[75px] w-full">
-          Creation
+          Private Space
         </h1>
         <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-          Streamline your projects with powerful tools and expert guidance, tailored for every developer.
+        Secure Your Success: Cloud Spaces for Project Excellence.
         </p>
       </div>
 

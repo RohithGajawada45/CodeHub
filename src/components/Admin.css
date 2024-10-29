@@ -1,0 +1,104 @@
+/* Admin.css */
+
+.admin-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-container h2 {
+    text-align: center;
+    color: #333;
+}
+
+.team-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.team-item {
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.record-details {
+    display: flex ;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.record-details h3 {
+    margin: 0;
+    color: #007bff;
+}
+
+.record-details p {
+    margin: 0 10px;
+}
+
+.members-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.members-list li {
+    margin: 5px 0;
+}
+
+.ip-address-form {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.ip-address-form input {
+    padding: 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 150px; /* Adjusted width for better fit */
+    transition: border-color 0.3s;
+}
+
+.ip-address-form input:focus {
+    border-color: #0056b3; /* Darker border on focus */
+    outline: none; /* Remove default outline */
+}
+
+.ip-address-form button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.ip-address-form button:hover {
+    background-color: #0056b3; /* Darker background on hover */
+}
+
+.ip-address-form button:focus {
+    outline: none; /* Remove default outline */
+}
+
+.loading {
+    text-align: center;
+    color: #333;
+}
+
+.error {
+    text-align: center;
+    color: #ff0000;
+}

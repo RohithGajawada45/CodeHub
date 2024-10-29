@@ -7,6 +7,7 @@ import Learn from "./components/Learn";
 import About from "./components/About";
 import Pricingpage from "./components/Pricingpage";
 import Form from "./components/Form";
+import Admin from "./components/Admin";
 
 const App = () => (
   <Router>
@@ -50,6 +51,7 @@ const App = () => (
         <Route path="/about" element={<About/>}/>
         <Route path="/pricing" element={<Pricingpage/>}/>
         <Route path="/success" element={<Form/>}/>
+        <Route path="/admin" element={<Admin/>}/>
       </Routes>
     </div>
   </Router>

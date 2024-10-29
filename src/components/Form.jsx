@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Form.css';
+import axios from 'axios';
 
 function Form() {
     const location = useLocation();
@@ -8,16 +9,16 @@ function Form() {
     const [teamName, setTeamName] = useState(''); 
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        field1: '',
-        field2: '',
-        field3: '',
-        field4: '',
-        field5: '',
+        fields: Array.from({ length:teamSize }), // Limit to a maximum of 5 fields
     });
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    const handleInputChange = (index, e) => {
+        const { value } = e.target;
+        setFormData((prevData) => {
+            const newFields = [...prevData.fields];
+            newFields[index] = value;
+            return { fields: newFields };
+        });
     };
 
     const handleTeamNameChange = (e) => {
@@ -26,8 +27,22 @@ function Form() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert(`Form submitted successfully! Team Name: ${teamName}, Team Size: ${teamSize}, Instance Type: ${instanceType}, Duration: ${durationInHours}`);
-        navigate("/");
+
+        const dataToSubmit = {
+            teamName,
+            instanceType,
+            durationInHours,
+            members: formData.fields.filter(field => field) // Filter out empty fields
+        };
+
+        axios.post("https://codehub-2fd81-default-rtdb.firebaseio.com/tasks.json", dataToSubmit)
+            .then(() => {
+                alert(`Form submitted successfully! Team Name: ${teamName}, Team Size: ${teamSize}, Instance Type: ${instanceType}, Duration: ${durationInHours}`);
+                navigate("/");
+            })
+            .catch((error) => {
+                console.error("There was an error submitting the form!", error);
+            });
     };
 
     return (
@@ -45,15 +60,25 @@ function Form() {
                             required 
                         />
                     </div>
+                    <div className="form-group">
+                        <label>Team Name:</label>
+                        <input 
+                            type="text" 
+                            value={email} 
+                            onChange={handleTeamNameChange} 
+                            placeholder="Enter your team name" 
+                            required 
+                        />
+                    </div>
                     
-                    {[...Array(teamSize)].map((_, index) => (
+                    {/* Render a fixed number of input fields based on teamSize, but limited to a maximum */}
+                    {formData.fields.map((field, index) => (
                         <div className="form-group" key={index}>
-                            <label>SHH {index + 1}:</label>
+                            <label>SSH {index + 1}:</label>
                             <input 
                                 type="text" 
-                                name={`field${index + 1}`} 
-                                value={formData[`field${index + 1}`]} 
-                                onChange={handleInputChange} 
+                                value={field} 
+                                onChange={(e) => handleInputChange(index, e)} 
                                 placeholder={`Enter SSH of Member ${index + 1}`} 
                                 required 
                             />

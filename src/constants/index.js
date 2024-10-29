@@ -23,31 +23,33 @@ export const features = [
   {
     id: "feature-1",
     icon: star,
-    title: "Rewards",
+    title: "Streamlined Project Oversight",
     content:
-      "The best credit cards offer some tantalizing combinations of promotions and prizes",
+      "Focus on driving your projects forward while we manage your virtual workspace.",
   },
   {
     id: "feature-2",
     icon: shield,
-    title: "100% Secured",
+    title: "Secure Collaboration and Resource Sharing",
     content:
-      "We take proactive steps make sure your information and transactions are secure.",
+      "Utilize our cloud platform to create a private space where you can collaborate seamlessly, share resources, and keep your project on track.",
   },
   {
     id: "feature-3",
     icon: send,
-    title: "Balance Transfer",
+    title: "Comprehensive Documentation ",
     content:
-      "A balance transfer credit card can save you a lot of money in interest charges.",
+      "documentation section offers clear, step-by-step guidance on creating and managing your own Git repositories.",
+
   },
+
 ];
 
 export const feedback = [
   {
     id: "feedback-1",
     content:
-      "Money is only a tool. It will take you wherever you wish, but it will not replace you as the driver.",
+      "Secure project management is key to success, as it not only protects sensitive information and mitigates risks but also fosters trust among stakeholders, ensuring that projects are delivered on time and within scope while maintaining the highest standards of integrity.",
     name: "Herman Jensen",
     title: "Founder & Leader",
     img: people01,
@@ -55,7 +57,7 @@ export const feedback = [
   {
     id: "feedback-2",
     content:
-      "Money makes your life easier. If you're lucky to have it, you're lucky.",
+      "Integrating project management with cloud technology creates a powerful synergy that enhances collaboration, improves accessibility, and streamlines workflows, allowing teams to work seamlessly from anywhere while ensuring real-time updates and efficient resource management..",
     name: "Steve Mark",
     title: "Founder & Leader",
     img: people02,
@@ -63,7 +65,7 @@ export const feedback = [
   {
     id: "feedback-3",
     content:
-      "It is usually people in the money business, finance, and international trade that are really rich.",
+      "The importance of secure project management cannot be overstated; it serves as the foundation for achieving project goals, safeguarding valuable assets, and ensuring compliance with regulations, ultimately driving organizational success and fostering a culture of accountability and trust..",
     name: "Kenn Gallagher",
     title: "Founder & Leader",
     img: people03,

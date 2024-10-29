@@ -8,10 +8,8 @@ function Team() {
     const [durationInHours, setDurationInHours] = useState(1);
     const navigate = useNavigate();
 
-    // Conversion rate from USD to INR
     const conversionRate = 83;
 
-    // Base prices per instance type (example prices, update as per AWS pricing)
     const instancePrices = {
         "t2.micro": 0.099,
         "t2.medium": 0.1464,
@@ -47,14 +45,14 @@ function Team() {
 
     const handlePayment = async () => {
         const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
-    
+
         if (!res) {
             alert("Razorpay SDK failed to load. Are you online?");
             return;
         }
-    
+
         const amountInPaisa = Math.round(totalPriceINR * 100); // Convert INR to paisa
-    
+
         const options = {
             key: "rzp_test_GcZZFDPP0jHtC4", // Use your Razorpay test key
             amount: amountInPaisa, // Amount in paisa
@@ -63,7 +61,8 @@ function Team() {
             description: "Payment for Team Pricing Plan",
             handler: function (response) {
                 alert(`Payment ID: ${response.razorpay_payment_id}`);
-                navigate('/success'); // Redirect on successful payment
+                // Navigate to Form with state
+                navigate('/success', { state: { teamSize, instanceType, durationInHours } }); 
             },
             prefill: {
                 name: "Customer Name",
@@ -74,11 +73,11 @@ function Team() {
                 color: "#3399cc",
             },
         };
-    
+
         const paymentObject = new window.Razorpay(options);
         paymentObject.open();
     };
-    
+
     return (
         <section className="flex flex-col items-center justify-center min-h-screen bg-primary w-full p-8">
             <h2 className="text-secondary font-semibold text-4xl mb-6 text-center">Team Pricing Calculator</h2>
@@ -111,7 +110,7 @@ function Team() {
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="duration" className="font-bold text-lg mb-2 block text-black">Enter Duration (hours):</label>
+                    <label html for="duration" className="font-bold text-lg mb-2 block text-black">Enter Duration (hours):</label>
                     <input
                         type="number"
                         id="duration"
@@ -122,17 +121,17 @@ function Team() {
                     />
                 </div>
 
-                <div className="my-6 text-lg text-black-300">
-                    <p><strong>Price per Member (USD):</strong> <span className="text-green-400">${(instancePrices[instanceType] * durationInHours).toFixed(2)}</span></p>
-                    <p><strong>Total Price (USD):</strong> <span className="text-red-400">${totalPriceUSD.toFixed(2)}</span></p>
-                    <p><strong>Total Price (INR):</strong> <span className="text-red-400">₹{totalPriceINR.toFixed(2)}</span></p>
+                <div className="mb-4">
+                    <p className="text-lg font-bold mb-2 block text-black">Total Price:</p>
+                    <p className="text-lg mb-2 block text-black">${totalPriceUSD.toFixed(2)} (USD)</p>
+                    <p className="text-lg mb-2 block text-black">₹{totalPriceINR.toFixed(2)} (INR)</p>
                 </div>
 
                 <button
+                    className="bg-[#3399cc] hover:bg-[#2288bb] text-white font-bold py-2 px-4 rounded"
                     onClick={handlePayment}
-                    className="w-full p-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
                 >
-                    Pay Now
+                    Make Payment
                 </button>
             </div>
         </section>

@@ -95,18 +95,6 @@ const Learn = () => {
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#links-literature" onClick={() => scrollToSection(linksLiteratureRef)} className="hover:underline cursor-pointer">
-                            5. Links and Literature
-                        </a>
-                        <ul className="list-disc list-inside ml-4 space-y-1">
-                            <li>
-                                <a href="#vogella-examples" onClick={() => scrollToSection(linksLiteratureRef)} className="hover:underline cursor-pointer">
-                                    5.1. vogella Java example code
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </nav>
 
@@ -118,7 +106,7 @@ const Learn = () => {
                 <section className="mb-8" ref={hostingProviderRef} id="hosting-provider">
                     <h2 className="text-3xl font-semibold mb-3 text-blue-500">Hosting Your Git Repositories</h2>
                     <p className="mb-4">
-                        This tutorial explains how to use Bitbucket as a hosting provider for your Git repository and how you can install a Git server on your own machine. Learn more in the Learning Portal. Check out our Git Online Training High Priority.
+                        This tutorial explains how to your Git repository and how you can install a Git server on your own machine.
                     </p>
                 </section>
 
@@ -259,23 +247,6 @@ sudo chown -R git:git /path/to/repo.git`}
                     <p className="mb-4">
                         The Git user can have a shell assigned to it. For increased security, the shell <code>/usr/bin/git-shell</code> can be assigned to the Git user via the <code>/etc/passwd</code> configuration file. If you assign this shell to the Git user, this user can also perform Git commands, which adds safety to your Git setup.
                     </p>
-                </section>
-
-                <section ref={linksLiteratureRef} id="links-literature">
-                    <h3 className="text-2xl font-semibold mt-6 mb-2 text-blue-600">5. Links and Literature</h3>
-                    <p className="mb-4">
-                        Visit the Git homepage for more information and resources. Additional examples can be found in the vogella Java example code section.
-                    </p>
-
-                    <h4 className="font-semibold mt-4" id="vogella-examples">5.1. vogella Java example code</h4>
-                    <ul className="list-disc list-inside ml-4 space-y-1">
-                        <li>Java Source examples</li>
-                        <li>Eclipse code examples</li>
-                        <li>Eclipse RCP code examples</li>
-                        <li>Eclipse IDE extensions code examples</li>
-                        <li>Maven code examples</li>
-                        <li>JUnit / Java testing code examples</li>
-                    </ul>
                 </section>
             </main>
         </div>

@@ -1,0 +1,89 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Light background for contrast */
+}
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height for vertical centering */
+}
+
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Increased width of the form */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-container {
+    display: flex; /* Use flexbox to align items in a single line */
+    align-items: center; /* Center align items vertically */
+}
+
+input[type="text"] {
+    flex: 1; /* Allow the input to take up the remaining space */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px; /* Space between input and button */
+}
+
+.ip-field {
+    display: flex; /* Ensure the IP field is displayed in a single line */
+    align-items: center; /* Center align items vertically */
+}
+
+.view-btn {
+    padding: 5px 10px; /* Smaller padding for a smaller button */
+    background-color: black;
+    color: black;
+    border: 2px solid black;
+    border-radius: 20px; /* Increased border radius for a rounded button */
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added shadow for visibility */
+    font-size: 0.9em; /* Slightly smaller font size */
+}
+
+.view-btn:hover {
+    background-color:black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+    color: white;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: black;
+    border: 2px solid black;
+    border-radius: 4px; /* Added border radius */
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added shadow for visibility */
+}
+
+.submit-btn:hover {
+    background-color: black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+    color:white
+}

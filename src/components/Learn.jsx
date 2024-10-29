@@ -6,7 +6,6 @@ const Learn = () => {
     const authenticationRef = useRef(null);
     const bitbucketRef = useRef(null);
     const ownGitServerRef = useRef(null);
-    const linksLiteratureRef = useRef(null);
 
     // Scroll to section function
     const scrollToSection = (ref) => {

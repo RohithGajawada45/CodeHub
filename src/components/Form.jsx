@@ -8,6 +8,7 @@ function Form() {
     const { teamSize, instanceType, durationInHours } = location.state || {}; // Destructure state
     const [teamName, setTeamName] = useState(''); 
     const navigate = useNavigate();
+    const [email,setEmail]=useState('');
     const [formData, setFormData] = useState({
         fields: Array.from({ length:teamSize }), // Limit to a maximum of 5 fields
     });
@@ -25,11 +26,16 @@ function Form() {
         setTeamName(e.target.value);
     };
 
+    const handleEmailChange = (e) =>{
+        setEmail(e.target.value);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const dataToSubmit = {
             teamName,
+            email,
             instanceType,
             durationInHours,
             members: formData.fields.filter(field => field) // Filter out empty fields
@@ -61,12 +67,12 @@ function Form() {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Team Name:</label>
+                        <label>Email:</label>
                         <input 
                             type="text" 
                             value={email} 
-                            onChange={handleTeamNameChange} 
-                            placeholder="Enter your team name" 
+                            onChange={handleEmailChange} 
+                            placeholder="Enter your email" 
                             required 
                         />
                     </div>

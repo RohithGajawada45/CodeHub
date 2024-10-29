@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import emailjs from '@emailjs/browser'; // Import EmailJS
+import emailjs from '@emailjs/browser';
 import './Admin.css';
 
 const Admin = () => {
@@ -8,6 +8,8 @@ const Admin = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [ipAddresses, setIpAddresses] = useState({});
+    const [sentStatus, setSentStatus] = useState({}); // Track if email is sent for each team
+    const [countdown, setCountdown] = useState({}); // Track countdown for each team
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,37 +43,58 @@ const Admin = () => {
         }));
     };
 
-    const handleSendClick = (id, teamName) => {
+    const handleSendClick = (email, id, teamName,duration) => {
         const ipAddress = ipAddresses[id];
-
-        // Define the email parameters
+        
         const templateParams = {
             team_name: teamName,
             ip_address: ipAddress,
-            admin_email: "sathvikmintu18@gmail.com" // Replace with the recipient's email
+            admin_email: email
         };
 
-        // Send the email
         emailjs.send(
-            'service_drueih7',          // Replace with your EmailJS service ID
-            'template_fll42xd',         // Replace with your EmailJS template ID
+            'service_drueih7',          
+            'template_fll42xd',         
             templateParams,
-            '4MnSF-QGuGJ8migmL'           // Replace with your EmailJS public key
+            '4MnSF-QGuGJ8migmL'          
         )
         .then((response) => {
             console.log("Email sent successfully:", response.status, response.text);
             alert("IP address sent successfully!");
+            
+            setSentStatus((prev) => ({
+                ...prev,
+                [id]: true // Mark this team as email sent
+            }));
+            
+            // Start the countdown timer
+            setCountdown((prev) => ({
+                ...prev,
+                [id]: duration * 60 * 60// Set countdown in seconds
+            }));
         })
         .catch((error) => {
             console.error("Error sending email:", error);
             alert("Failed to send IP address. Please try again.");
         });
-
-        setIpAddresses((prev) => ({
-            ...prev,
-            [id]: '' // Optionally clear the input field after sending
-        }));
     };
+
+    // Update countdown every second
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCountdown((prevCountdown) => {
+                const updatedCountdown = { ...prevCountdown };
+                Object.keys(updatedCountdown).forEach((id) => {
+                    if (updatedCountdown[id] > 0) {
+                        updatedCountdown[id] -= 1;
+                    }
+                });
+                return updatedCountdown;
+            });
+        }, 1000);
+
+        return () => clearInterval(intervalId); // Cleanup on component unmount
+    }, []);
 
     if (loading) {
         return <div className="loading">Loading...</div>;
@@ -100,15 +123,23 @@ const Admin = () => {
                                 ))}
                             </ul>
                             <div className="ip-address-form">
-                                <input
-                                    type="text"
-                                    value={ipAddresses[item.id] || ''}
-                                    onChange={(event) => handleIpChange(item.id, event)}
-                                    placeholder="Enter IP Address"
-                                />
-                                <button onClick={() => handleSendClick(item.id, item.teamName)}>
-                                    Send
-                                </button>
+                                {sentStatus[item.id] ? (
+                                    <p className="countdown-timer">
+                                        Countdown: {countdown[item.id] > 0 ? countdown[item.id] : "Done"}
+                                    </p>
+                                ) : (
+                                    <>
+                                        <input
+                                            type="text"
+                                            value={ipAddresses[item.id] || ''}
+                                            onChange={(event) => handleIpChange(item.id, event)}
+                                            placeholder="Enter IP Address"
+                                        />
+                                        <button onClick={() => handleSendClick(item.email, item.id, item.teamName,item.durationInHours)}>
+                                            Send
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         </li>
                     ))}

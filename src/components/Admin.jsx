@@ -8,8 +8,8 @@ const Admin = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [ipAddresses, setIpAddresses] = useState({});
-    const [sentStatus, setSentStatus] = useState({}); // Track if email is sent for each team
-    const [countdown, setCountdown] = useState({}); // Track countdown for each team
+    const [sentStatus, setSentStatus] = useState({});
+    const [countdown, setCountdown] = useState({}); 
 
     useEffect(() => {
         const fetchData = async () => {
@@ -64,13 +64,12 @@ const Admin = () => {
             
             setSentStatus((prev) => ({
                 ...prev,
-                [id]: true // Mark this team as email sent
+                [id]: true 
             }));
             
-            // Start the countdown timer
             setCountdown((prev) => ({
                 ...prev,
-                [id]: duration * 60 * 60// Set countdown in seconds
+                [id]: duration * 60 * 60
             }));
         })
         .catch((error) => {
@@ -79,7 +78,7 @@ const Admin = () => {
         });
     };
 
-    // Update countdown every second
+
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCountdown((prevCountdown) => {
@@ -93,7 +92,7 @@ const Admin = () => {
             });
         }, 1000);
 
-        return () => clearInterval(intervalId); // Cleanup on component unmount
+        return () => clearInterval(intervalId);
     }, []);
 
     if (loading) {
@@ -120,13 +119,18 @@ const Admin = () => {
                             <ul className="members-list">
                                 {item.members.map((member, index) => (
                                     <li key={index}>{member}</li>
+                                    
                                 ))}
                             </ul>
                             <div className="ip-address-form">
                                 {sentStatus[item.id] ? (
+                                    <div>
                                     <p className="countdown-timer">
                                         Countdown: {countdown[item.id] > 0 ? countdown[item.id] : "Done"}
                                     </p>
+                                    
+                                    
+                                    </div>
                                 ) : (
                                     <>
                                         <input

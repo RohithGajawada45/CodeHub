@@ -28,11 +28,10 @@ function Team() {
         setDurationInHours(Math.max(1, parseInt(e.target.value) || 1));
     };
 
-    // Calculate total price in USD and INR
     const totalPriceUSD = teamSize * instancePrices[instanceType] * durationInHours;
     const totalPriceINR = totalPriceUSD * conversionRate;
 
-    // Load Razorpay script
+    
     const loadScript = (src) => {
         return new Promise((resolve) => {
             const script = document.createElement("script");
@@ -51,17 +50,16 @@ function Team() {
             return;
         }
 
-        const amountInPaisa = Math.round(totalPriceINR * 100); // Convert INR to paisa
+        const amountInPaisa = Math.round(totalPriceINR * 100); 
 
         const options = {
-            key: "rzp_test_GcZZFDPP0jHtC4", // Use your Razorpay test key
-            amount: amountInPaisa, // Amount in paisa
+            key: "rzp_test_GcZZFDPP0jHtC4", 
+            amount: amountInPaisa, 
             currency: "INR",
             name: "Team Pricing Payment",
             description: "Payment for Team Pricing Plan",
             handler: function (response) {
                 alert(`Payment ID: ${response.razorpay_payment_id}`);
-                // Navigate to Form with state
                 navigate('/success', { state: { teamSize, instanceType, durationInHours } }); 
             },
             prefill: {

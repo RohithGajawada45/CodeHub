@@ -5,12 +5,12 @@ import axios from 'axios';
 
 function Form() {
     const location = useLocation();
-    const { teamSize, instanceType, durationInHours } = location.state || {}; // Destructure state
+    const { teamSize, instanceType, durationInHours } = location.state || {}; 
     const [teamName, setTeamName] = useState(''); 
     const navigate = useNavigate();
     const [email,setEmail]=useState('');
     const [formData, setFormData] = useState({
-        fields: Array.from({ length:teamSize }), // Limit to a maximum of 5 fields
+        fields: Array.from({ length:teamSize }), 
     });
 
     const handleInputChange = (index, e) => {
@@ -38,7 +38,7 @@ function Form() {
             email,
             instanceType,
             durationInHours,
-            members: formData.fields.filter(field => field) // Filter out empty fields
+            members: formData.fields.filter(field => field) 
         };
 
         axios.post("https://codehub-2fd81-default-rtdb.firebaseio.com/tasks.json", dataToSubmit)
@@ -77,7 +77,7 @@ function Form() {
                         />
                     </div>
                     
-                    {/* Render a fixed number of input fields based on teamSize, but limited to a maximum */}
+                    
                     {formData.fields.map((field, index) => (
                         <div className="form-group" key={index}>
                             <label>SSH {index + 1}:</label>

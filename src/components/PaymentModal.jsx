@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 function PaymentModal({ isOpen, onClose }) {
     const [showQRCode, setShowQRCode] = useState(false);
-    const [timer, setTimer] = useState(5 * 60); // Initial time in seconds (5 minutes)
+    const [timer, setTimer] = useState(5 * 60); 
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -14,17 +14,17 @@ function PaymentModal({ isOpen, onClose }) {
             }, 1000);
         }
 
-        return () => clearInterval(interval); // Cleanup interval on unmount
+        return () => clearInterval(interval); 
     }, [showQRCode]);
 
     useEffect(() => {
-        // Redirect to success page after 20 seconds if the QR code is shown
+  
         if (showQRCode) {
             const redirectTimer = setTimeout(() => {
-                navigate('/success'); // Redirect to the success page
-            }, 20000); // 20000 ms = 20 seconds
+                navigate('/success'); 
+            }, 20000);
 
-            return () => clearTimeout(redirectTimer); // Cleanup on unmount
+            return () => clearTimeout(redirectTimer); 
         }
     }, [showQRCode, navigate]);
 
@@ -34,7 +34,6 @@ function PaymentModal({ isOpen, onClose }) {
         setShowQRCode(true);
     };
 
-    // Format timer as mm:ss
     const formatTime = (seconds) => {
         const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
         const secs = String(seconds % 60).padStart(2, '0');
@@ -52,7 +51,7 @@ function PaymentModal({ isOpen, onClose }) {
                 <div className="payment-section">
                     <h3>Pay With UPI QR</h3>
                     
-                    {/* Show QR Code only if showQRCode is true */}
+                    
                     {showQRCode && (
                         <div className="qr-code">
                             <img src="/PhonePe.png" alt="QR Code" />
@@ -61,7 +60,7 @@ function PaymentModal({ isOpen, onClose }) {
 
                     <p>Scan the QR using any UPI app on your phone.</p>
                     
-                    {/* Show the timer in a larger, styled format */}
+                    
                     {showQRCode && (
                         <p className="qr-timer">
                             QR Code is valid for <span className="timer-countdown">{formatTime(timer)}</span> minutes

@@ -1,20 +1,20 @@
 import React, { useRef } from 'react';
 
 const Learn = () => {
-    // Create refs for each section
+    
     const hostingProviderRef = useRef(null);
     const authenticationRef = useRef(null);
     const bitbucketRef = useRef(null);
     const ownGitServerRef = useRef(null);
 
-    // Scroll to section function
+    
     const scrollToSection = (ref) => {
         if (ref.current) {
             ref.current.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
-    // Copy code to clipboard function
+    
     const copyToClipboard = (code) => {
         navigator.clipboard.writeText(code)
             .then(() => {
@@ -30,7 +30,7 @@ const Learn = () => {
             <nav className="w-1/4 bg-[#0d0d2b] text-gray-800 shadow-lg p-6 rounded-lg">
                 <h1 className="text-2xl font-bold mb-4 text-center text-white">CodeHub Learnings</h1>
 
-                {/* Table of Contents Section */}
+              
                 <h2 className="text-lg font-semibold mb-2 border-b-2 border-blue-300 pb-2 text-white">Table of Contents</h2>
                 <ul className="list-disc list-inside space-y-2 text-white">
                     <li>
@@ -97,11 +97,11 @@ const Learn = () => {
                 </ul>
             </nav>
 
-            {/* Main content */}
+         
             <main className="flex-1 p-8 bg-white rounded-lg shadow-md mx-6">
                 <h1 className="text-4xl font-semibold mb-4 text-blue-600">Welcome to CodeHub Learnings</h1>
 
-                {/* Main tutorial content */}
+               
                 <section className="mb-8" ref={hostingProviderRef} id="hosting-provider">
                     <h2 className="text-3xl font-semibold mb-3 text-blue-500">Hosting Your Git Repositories</h2>
                     <p className="mb-4">

@@ -34,10 +34,12 @@ const Gemini = () => {
         <div className="gemini-bg-container bg-discount-gradient">
             <div className="gemini-center-container bg-black-gradient-2 border border-white/20">
                 <h1 className="text-gradient font-bold text-xl">Ask AI..</h1>
+                <br></br>
+                <br></br>
                 <div className="response-container text-left">
                     {/* Display chat responses first */}
                     {responses.map((response, index) => (
-                        <div key={index} className={`response-text text-xl font-bold border border-white/20 rounded ${response.isUser ? 'text-white' : 'text-gradient'}`}>
+                        <div key={index} className={`response-text text-xl font-bold ${response.isUser ? 'text-white' : 'text-gradient'}`}>
                             {response.text}
                         </div>
 
@@ -52,7 +54,7 @@ const Gemini = () => {
                         placeholder="Ask me something..."
                         className="input-field"
                     />
-                    <button onClick={getResponseForGivenPrompt} className="gemini-button bg-blue-gradient text-black font-bold py-2 px-4 rounded border border-white/20">
+                    <button onClick={getResponseForGivenPrompt} className="gemini-button bg-blue-gradient text-black font-bold py-2 px-4">
                         Send
                     </button>
                 </div>

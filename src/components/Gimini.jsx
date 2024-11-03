@@ -1,4 +1,3 @@
-// src/GeminiAIComponent.js
 import React, { useState } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import "./Gemini.css";
@@ -8,7 +7,6 @@ const Gemini = () => {
     const [responses, setResponses] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // Initialize the Google Generative AI instance
     const genAI = new GoogleGenerativeAI('AIzaSyCX-q5H_yfNST1BbS2IdLhqJTiBmDqsymg');
 
     const handleInputChange = (e) => {
@@ -20,10 +18,10 @@ const Gemini = () => {
         try {
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
             const result = await model.generateContent(inputValue);
-            const responseText = result.response.text(); // Extract the text from the response
-            setResponses([...responses, { text: responseText, isUser: false }]); // Update the responses state
-            setResponses(prevResponses => [...prevResponses, { text: inputValue, isUser: true }]); // Add user input
-            setInputValue(''); // Clear the input field
+            const responseText = result.response.text();
+            setResponses([...responses, { text: responseText, isUser: false }]); 
+            setResponses(prevResponses => [...prevResponses, { text: inputValue, isUser: true }]); 
+            setInputValue(''); 
         } catch (error) {
             console.error("Error fetching response:", error);
         } finally {
@@ -32,30 +30,34 @@ const Gemini = () => {
     };
 
     return (
-        <div className="container">
-            <h1>Google Generative AI Chat</h1>
-            <div className="response-container">
-                {/* Display chat responses first */}
-                {responses.map((response, index) => (
-                    <div key={index} className={`response-text ${response.isUser ? 'user-response' : ''}`}>
-                        {response.text}
-                    </div>
-                ))}
+        <div className="bg-discount-gradient">
+        <div className="gemini-bg-container bg-discount-gradient">
+            <div className="gemini-center-container bg-black-gradient-2 border border-white/20">
+                <h1 className="text-gradient font-bold text-xl">Ask AI..</h1>
+                <div className="response-container text-left">
+                    {/* Display chat responses first */}
+                    {responses.map((response, index) => (
+                        <div key={index} className={`response-text text-xl font-bold border border-white/20 rounded ${response.isUser ? 'text-white' : 'text-gradient'}`}>
+                            {response.text}
+                        </div>
+
+                    ))}
+                </div>
+                {loading && <div className="font-bold text-gradient text-xl">Loading...</div>}
+                <div>
+                    <input
+                        type="text"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        placeholder="Ask me something..."
+                        className="input-field"
+                    />
+                    <button onClick={getResponseForGivenPrompt} className="gemini-button bg-blue-gradient text-black font-bold py-2 px-4 rounded border border-white/20">
+                        Send
+                    </button>
+                </div>
             </div>
-            {loading && <div>Loading...</div>}
-            <div>
-                {/* Input field and button come after the chat responses */}
-                <input
-                    type="text"
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    placeholder="Ask me something..."
-                    className="input-field"
-                />
-                <button onClick={getResponseForGivenPrompt} className="btn btn-primary">
-                    Send
-                </button>
-            </div>
+        </div>
         </div>
     );
 };

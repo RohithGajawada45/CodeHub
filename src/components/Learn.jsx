@@ -98,7 +98,7 @@ const Learn = () => {
 
          
             <main className="flex-1 p-8 bg-white rounded-lg shadow-md mx-6">
-                <h1 className="text-4xl font-semibold mb-4 text-blue-600">Welcome to CodeHub Learnings</h1>
+                <h1 className="text-4xl font-semibold mb-4 text-blue-600"><center>Welcome to CodeHub Learnings</center></h1>
 
                
                 <section className="mb-8" ref={hostingProviderRef} id="hosting-provider">
@@ -127,7 +127,7 @@ const Learn = () => {
                         To create an SSH key under Linux (or Windows/Mac with OpenSSH installed), switch to the command line and execute the following commands. The generated SSH key is by default located in the .ssh directory of the user home directory. Ensure that you back up existing keys in this directory before running the following commands.
                     </p>
                     <div className="relative mb-4">
-                        <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto shadow-inner">
+                        <pre className="bg-black-gradient-2 p-3 rounded-lg overflow-x-auto shadow-inner text-white">
                             {`# Switch to your .ssh directory
 cd ~/.ssh
 
@@ -146,7 +146,7 @@ ssh-keygen -t rsa -b 4096 -C "your_email@youremail.com"
                         </pre>
                         <button
                             onClick={() => copyToClipboard(`# Switch to your .ssh directory\ncd ~/.ssh\n\n# If the directory does not exist, create it via:\n# mkdir .ssh\n\n# Manually backup all existing content of this dir!!!\n\n# Afterwards generate the ssh key\nssh-keygen -t rsa -b 4096 -C "your_email@youremail.com"\n\n# Press enter to select the default directory\n# You will be prompted for an optional passphrase\n# A passphrase protects your private key\n# but you have to enter it manually during ssh operations`)}
-                            className="absolute top-3 right-3 bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
+                            className="absolute top-3 text-black right-3 bg-blue-500 bg-blue-gradient text-white py-1 px-2 rounded hover:bg-blue-600"
                         >
                             Copy
                         </button>
@@ -178,7 +178,7 @@ ssh-keygen -t rsa -b 4096 -C "your_email@youremail.com"
                         As described before, you do not need a server. You can just use a file system or a public Git provider, such as GitHub or Bitbucket. Sometimes, however, it is convenient to have your own server, and installing it under Ubuntu is relatively easy.
                     </p>
                     <div className="relative mb-4">
-                        <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto shadow-inner">
+                        <pre className="bg-black-gradient-2 text-white p-3 rounded-lg overflow-x-auto shadow-inner">
                             {`# Make sure you have installed the SSH tooling.
 sudo apt-get install ssh
 
@@ -197,7 +197,7 @@ git init --bare example.git`}
                         </pre>
                         <button
                             onClick={() => copyToClipboard(`# Make sure you have installed the SSH tooling.\nsudo apt-get install ssh\n\n# If you have not yet installed Git on your server, you need to do this too.\nsudo apt-get install git-core\n\n# Create a new user and set a password for the Git system.\nsudo adduser git\n\n# Login to server\n# to test use localhost\nssh git@IP_ADDRESS_OF_SERVER\n\n# Create repository\ngit init --bare example.git`)}
-                            className="absolute top-3 right-3 bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
+                            className="bg-blue-gradient text-black absolute top-3 right-3 bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
                         >
                             Copy
                         </button>
@@ -206,7 +206,7 @@ git init --bare example.git`}
                         Now you can push to the remote repository.
                     </p>
                     <div className="relative mb-4">
-                        <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto shadow-inner">
+                        <pre className="bg-black-gradient-2 text-white p-3 rounded-lg overflow-x-auto shadow-inner">
                             {`mkdir gitexample
 cd gitexample
 git init
@@ -218,7 +218,7 @@ git push -u origin master`}
                         </pre>
                         <button
                             onClick={() => copyToClipboard(`mkdir gitexample\ncd gitexample\ngit init\ntouch README\ngit add README\ngit commit -m "initial commit"\ngit remote add origin ssh://git@YOUR_IP/example.git\ngit push -u origin master`)}
-                            className="absolute top-3 right-3 bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
+                            className="bg-blue-gradient text-black absolute top-3 right-3 bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
                         >
                             Copy
                         </button>
@@ -229,13 +229,13 @@ git push -u origin master`}
                         Once you have set up the repository, you will also want to allow others to write to this repository. The easiest way to do this is to give a user permission to write to the Git repository.
                     </p>
                     <div className="relative mb-4">
-                        <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto shadow-inner">
+                        <pre className="bg-black-gradient-2 text-white p-3 rounded-lg overflow-x-auto shadow-inner">
                             {`# Change the ownership of the directory to the git user
 sudo chown -R git:git /path/to/repo.git`}
                         </pre>
                         <button
                             onClick={() => copyToClipboard(`# Change the ownership of the directory to the git user\nsudo chown -R git:git /path/to/repo.git`)}
-                            className="absolute top-3 right-3 bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
+                            className="bg-blue-gradient text-black absolute top-3 right-3 bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
                         >
                             Copy
                         </button>

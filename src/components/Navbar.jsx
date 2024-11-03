@@ -9,7 +9,7 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <nav className="w-full flex py-6 justify-between items-center navbar">
+    <nav className="w-full flex py-6 justify-between items-center navbar p-10">
       {/* Replace the image with a styled text logo */}
       <h1 className="text-4xl font-bold text-white logo-text">CodeHub</h1>
 

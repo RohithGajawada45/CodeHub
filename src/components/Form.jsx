@@ -52,12 +52,12 @@ function Form() {
     };
 
     return (
-        <div className="form-wrapper">
-            <div className="form-container">
-                <h2>Form</h2>
+        <div className="form-wrapper bg-discount-gradient">
+            <div className="form-container bg-black-gradient-2 border border-white/20">
+            <h2 className="text-gradient font-bold text-xl block">Team Form</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Team Name:</label>
+                        <label className="text-gradient font-bold text-lg mb-2 block">Team Name:</label>
                         <input 
                             type="text" 
                             value={teamName} 
@@ -67,7 +67,7 @@ function Form() {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Email:</label>
+                        <label className='text-gradient font-bold text-lg mb-2 block'>Email:</label>
                         <input 
                             type="text" 
                             value={email} 
@@ -80,7 +80,7 @@ function Form() {
                     
                     {formData.fields.map((field, index) => (
                         <div className="form-group" key={index}>
-                            <label>SSH {index + 1}:</label>
+                            <label className="text-gradient font-bold text-lg mb-2 block">SSH {index + 1}:</label>
                             <input 
                                 type="text" 
                                 value={field} 
@@ -91,7 +91,7 @@ function Form() {
                         </div>
                     ))}
 
-                    <button type="submit" className="submit-btn">Submit</button>
+                    <button type="submit" className="submit-btn bg-blue-gradient font-bold py-2 px-4 rounded border border-white/20 hover:bg-white text-black ">Submit</button>
                 </form>
             </div>
         </div>

@@ -26,12 +26,11 @@ const Learn = () => {
     };
 
     return (
-        <div className="flex min-h-screen bg-gradient-to-r from-blue-1000 to-blue-1000">
-            <nav className="w-1/4 bg-[#0d0d2b] text-gray-800 shadow-lg p-6 rounded-lg">
+        <div className="flex min-h-screen bg-discount-gradient">
+            <nav className="w-1/4 bg-[#0d0] text-gradient shadow-lg p-6 rounded-lg border border-white/20">
                 <h1 className="text-2xl font-bold mb-4 text-center text-white">CodeHub Learnings</h1>
 
-              
-                <h2 className="text-lg font-semibold mb-2 border-b-2 border-blue-300 pb-2 text-white">Table of Contents</h2>
+                <h2 className="text-lg font-semibold mb-2 border-b-2 border- pb-2 text-white">Table of Contents</h2>
                 <ul className="list-disc list-inside space-y-2 text-white">
                     <li>
                         <a href="#hosting-provider" onClick={() => scrollToSection(hostingProviderRef)} className="hover:underline cursor-pointer">

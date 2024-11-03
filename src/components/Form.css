@@ -82,8 +82,4 @@ input[type="text"] {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added shadow for visibility */
 }
 
-.submit-btn:hover {
-    background-color: black;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
-    color:white
-}
+

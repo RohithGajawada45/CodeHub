@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
+import "../index.css"
 
 const features = [
   {
@@ -11,12 +12,12 @@ const features = [
     description: "Access the comprehensive documentation about the space creation.",
   },
   {
-    title: "Know The Pricing",
-    description: "Detailed description of pricing.",
+    title: "Real-time Support",
+    description: "Use Gemini AI to resolve your issues",
   },
   {
-    title: "Know About Us",
-    description: "Detailed description of Know About Us.",
+    title: "Terminal Based Learning",
+    description: "Know the step by step process",
   },
 ];
 
@@ -41,23 +42,25 @@ const FeaturesSection = () => {
     else if(feature.title === "Know The Pricing"){
       navigate("/pricing")
     }
+
+    else if(feature.title === 'Real-time Support')
+    {
+      navigate("/gemini");
+    }
   };
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen bg-primary w-full p-8">
-      <h1 className="text-secondary font-semibold text-5xl mb-4 text-center">Features</h1>
-      <p className="text-center text-dimWhite text-lg leading-7 mb-12 max-w-2xl">
-        Explore the various features that streamline project management, enhance collaboration.
-      </p>
-
+    <section className="flex flex-col items-center justify-center min-h-screen bg-discount-gradient">
+      <h1 className="text-gradient font-semibold text-5xl mb-4 text-center">Features</h1>
+      <br></br>
       <div className="grid grid-cols-1 gap-8 max-w-5xl w-full md:grid-cols-2">
         {features.map((feature, index) => (
           <div
             key={index}
-            className="bg-[#0d0d2b] p-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl border border-white/20"
+            className="bg-black-gradient-2 p-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl border border-white/20"
             onClick={() => handleClick(feature)}
           >
-            <h2 className="text-secondary font-semibold text-2xl mb-3">{feature.title}</h2>
+            <h2 className="text-gradient font-semibold text-2xl mb-3">{feature.title}</h2>
             <p className="text-center text-dimWhite text-base leading-6">{feature.description}</p>
           </div>
         ))}

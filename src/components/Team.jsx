@@ -77,12 +77,12 @@ function Team() {
     };
 
     return (
-        <section className="flex flex-col items-center justify-center min-h-screen bg-primary w-full p-8">
-            <h2 className="text-secondary font-semibold text-4xl mb-6 text-center">Team Pricing Calculator</h2>
+        <section className="flex flex-col items-center justify-center min-h-screen bg-discount-gradient w-full p-8">
+            <h2 className="text-gradient font-semibold text-4xl mb-6 text-center">Team Pricing Calculator</h2>
 
-            <div className="bg-[#ffffff] p-8 rounded-lg shadow-lg max-w-md w-full">
+            <div className="bg-black-gradient-2 p-8 rounded-lg shadow-lg max-w-md w-full rounded-lg shadow-lg border border-white/20">
                 <div className="mb-4">
-                    <label htmlFor="teamSize" className="font-bold text-lg mb-2 block text-black">Enter Team Size:</label>
+                    <label htmlFor="teamSize" className="text-gradient font-bold text-lg mb-2 block text-black">Enter Team Size:</label>
                     <input
                         type="number"
                         id="teamSize"
@@ -94,7 +94,7 @@ function Team() {
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="instanceType" className="font-bold text-lg mb-2 block text-black">Select Instance Type:</label>
+                    <label htmlFor="instanceType" className="text-gradient font-bold text-lg mb-2 block">Select Instance Type:</label>
                     <select
                         id="instanceType"
                         value={instanceType}
@@ -108,7 +108,7 @@ function Team() {
                 </div>
 
                 <div className="mb-4">
-                    <label html for="duration" className="font-bold text-lg mb-2 block text-black">Enter Duration (hours):</label>
+                    <label html for="duration" className="text-gradient font-bold text-lg mb-2 block text-black">Enter Duration (hours):</label>
                     <input
                         type="number"
                         id="duration"
@@ -120,13 +120,13 @@ function Team() {
                 </div>
 
                 <div className="mb-4">
-                    <p className="text-lg font-bold mb-2 block text-black">Total Price:</p>
-                    <p className="text-lg mb-2 block text-black">${totalPriceUSD.toFixed(2)} (USD)</p>
-                    <p className="text-lg mb-2 block text-black">₹{totalPriceINR.toFixed(2)} (INR)</p>
+                    <p className="text-lg font-bold mb-2 block text-gradient">Total Price:</p>
+                    <p className="text-lg mb-2 block text-white">${totalPriceUSD.toFixed(2)} (USD)</p>
+                    <p className="text-lg mb-2 block text-white">₹{totalPriceINR.toFixed(2)} (INR)</p>
                 </div>
 
                 <button
-                    className="bg-[#3399cc] hover:bg-[#2288bb] text-white font-bold py-2 px-4 rounded"
+                    className="bg-blue-gradient hover:bg-white text-black font-bold py-2 px-4 rounded border border-white/20"
                     onClick={handlePayment}
                 >
                     Make Payment

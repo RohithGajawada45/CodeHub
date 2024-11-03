@@ -8,13 +8,13 @@ import About from "./components/About";
 import Pricingpage from "./components/Pricingpage";
 import Form from "./components/Form";
 import Admin from "./components/Admin";
+import Gemini from "./components/Gimini";
 
 const App = () => (
   <Router>
     <div className="bg-primary w-full overflow-hidden">
       <div className={`${styles.paddingX} ${styles.flexCenter}`}>
         <div className={`${styles.boxWidth}`}>
-          <Navbar />
         </div>
       </div>
 
@@ -52,6 +52,7 @@ const App = () => (
         <Route path="/pricing" element={<Pricingpage/>}/>
         <Route path="/success" element={<Form/>}/>
         <Route path="/admin12345678" element={<Admin/>}/>
+        <Route path="/gemini" element={<Gemini/>}/>
       </Routes>
     </div>
   </Router>

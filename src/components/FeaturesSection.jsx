@@ -53,7 +53,7 @@ const FeaturesSection = () => {
     <section className="flex flex-col items-center justify-center min-h-screen bg-discount-gradient">
       <h1 className="text-gradient font-semibold text-5xl mb-4 text-center">Features</h1>
       <br></br>
-      <div className="grid grid-cols-1 gap-8 max-w-5xl w-full md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8 max-w-5xl w-full md:grid-cols-2 cursor-pointer">
         {features.map((feature, index) => (
           <div
             key={index}

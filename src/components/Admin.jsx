@@ -9,7 +9,9 @@ const Admin = () => {
     const [error, setError] = useState(null);
     const [ipAddresses, setIpAddresses] = useState({});
     const [sentStatus, setSentStatus] = useState({});
-    const [countdown, setCountdown] = useState({}); 
+    const [countdown, setCountdown] = useState({});
+    const [showModal, setShowModal] = useState(false);
+    const [selectedMembers, setSelectedMembers] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,7 +45,7 @@ const Admin = () => {
         }));
     };
 
-    const handleSendClick = (email, id, teamName,duration) => {
+    const handleSendClick = (email, id, teamName, duration) => {
         const ipAddress = ipAddresses[id];
         
         const templateParams = {
@@ -78,6 +80,15 @@ const Admin = () => {
         });
     };
 
+    const handleShowMembers = (members) => {
+        setSelectedMembers(members);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setSelectedMembers([]);
+    };
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -104,52 +115,64 @@ const Admin = () => {
     }
 
     return (
-        <div className="admin-container">
-            <h2>Submitted Teams</h2>
-            {data.length > 0 ? (
-                <ul className="team-list">
-                    {data.map((item) => (
-                        <li key={item.id} className="team-item">
-                            <div className="record-details">
-                                <h3>Team Name: {item.teamName}</h3>
-                                <p>Instance Type: {item.instanceType}</p>
-                                <p>Duration: {item.durationInHours} hours</p>
+        <div className="bg-discount-gradient">
+            <div className="admin-container">
+                <h2 className="text-gradient font-bold text-xl">Submitted Teams</h2>
+                {data.length > 0 ? (
+                    <div className="team-list">
+                        {data.map((item) => (
+                            <div key={item.id} className="team-item bg-black-gradient-2 border border-white/20">
+                                <div className="record-details font-bold text-white">
+                                    <label>Team Name: {item.teamName}</label>
+                                    <p>Instance Type: {item.instanceType}</p>
+                                    <p>Duration: {item.durationInHours} hours</p>
+                                </div>
+                                <button onClick={() => handleShowMembers(item.members)} className="show-members-button bg-blue-gradient font-bold">
+                                    Show Members
+                                </button>
+                                <div className="ip-address-form">
+                                <br></br>
+                                    {sentStatus[item.id] ? (
+                                        <div>
+                                            <p className="countdown-timer font-bold text-lg text-white">
+                                                Countdown: {countdown[item.id] > 0 ? countdown[item.id] : "Done"}
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <input
+                                                type="text"
+                                                value={ipAddresses[item.id] || ''}
+                                                onChange={(event) => handleIpChange(item.id, event)}
+                                                placeholder="Enter IP Address"
+                                            />
+                                            <button className="ip-send font-bold bg-blue-gradient text-black rounded p-2" onClick={() => handleSendClick(item.email, item.id, item.teamName, item.durationInHours)}>
+                                                Send
+                                            </button>
+                                        </>
+                                    )}
+                                </div>
                             </div>
-                            <h4>Members:</h4>
-                            <ul className="members-list">
-                                {item.members.map((member, index) => (
-                                    <li key={index}>{member}</li>
-                                    
-                                ))}
-                            </ul>
-                            <div className="ip-address-form">
-                                {sentStatus[item.id] ? (
-                                    <div>
-                                    <p className="countdown-timer">
-                                        Countdown: {countdown[item.id] > 0 ? countdown[item.id] : "Done"}
-                                    </p>
-                                    
-                                    
-                                    </div>
-                                ) : (
-                                    <>
-                                        <input
-                                            type="text"
-                                            value={ipAddresses[item.id] || ''}
-                                            onChange={(event) => handleIpChange(item.id, event)}
-                                            placeholder="Enter IP Address"
-                                        />
-                                        <button onClick={() => handleSendClick(item.email, item.id, item.teamName,item.durationInHours)}>
-                                            Send
-                                        </button>
-                                    </>
-                                )}
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>No data available.</p>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-gradient text-xl font-bold">No data available.</p>
+                )}
+            </div>
+
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content bg-discount-gradient border border-white/20">
+                        <h3 className="text-gradient font-bold text-xl">Team Members</h3>
+                        <br></br>
+                        <ul className="text-white font-bold">
+                            {selectedMembers.map((member, index) => (
+                                <li key={index}>{member}</li>
+                            ))}
+                        </ul>
+                        <button onClick={handleCloseModal} className="close-modal-button bg-blue-gradient text-black font-bold">Close</button>
+                    </div>
+                </div>
             )}
         </div>
     );

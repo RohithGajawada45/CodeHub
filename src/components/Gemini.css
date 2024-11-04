@@ -23,7 +23,7 @@ body, html {
 }
 
 .response-container {
-    max-height: 650px;      /* Limit height for chat responses */
+    max-height: 600px;      /* Limit height for chat responses */
     overflow-y: auto;       /* Enable scrolling for overflow */
     margin-bottom: 20px;    /* Space between responses and input */
 }

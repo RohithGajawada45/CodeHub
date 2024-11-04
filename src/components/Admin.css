@@ -1,104 +1,73 @@
-/* Admin.css */
-
 .admin-container {
-    max-width: 800px;
-    margin: 20px auto;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.admin-container h2 {
-    text-align: center;
-    color: #333;
 }
 
 .team-list {
-    list-style-type: none;
-    padding: 0;
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    gap: 20px; /* Space between items */
 }
 
-.team-item {
-    margin: 15px 0;
+.team-item { /* Change the background color as needed */
+    border-radius: 10px;
     padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
+    width: calc(33.333% - 20px); /* Adjust width for 3 items per row */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.team-item:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
 }
 
 .record-details {
-    display: flex ;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    margin-bottom: 10px;
 }
 
-.record-details h3 {
-    margin: 0;
-    color: #007bff;
-}
-
-.record-details p {
-    margin: 0 10px;
-}
-
-.members-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.members-list li {
-    margin: 5px 0;
-}
-
-.ip-address-form {
+.show-members-button {
     margin-top: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.ip-address-form input {
-    padding: 10px;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    margin-right: 10px;
-    width: 150px; /* Adjusted width for better fit */
-    transition: border-color 0.3s;
-}
-
-.ip-address-form input:focus {
-    border-color: #0056b3; /* Darker border on focus */
-    outline: none; /* Remove default outline */
-}
-
-.ip-address-form button {
-    padding: 10px 15px;
+    padding: 6px 12px;
+    color: black;
     border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.ip-address-form button:hover {
-    background-color: #0056b3; /* Darker background on hover */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
-.ip-address-form button:focus {
-    outline: none; /* Remove default outline */
-}
-
-.loading {
+.modal-content {
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 100%;
     text-align: center;
-    color: #333;
 }
 
-.error {
-    text-align: center;
-    color: #ff0000;
+.close-modal-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: black;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.ip-send
+{
+    border-radius: 8px;
 }

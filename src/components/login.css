@@ -1,0 +1,76 @@
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+  }
+  
+  .auth-panel {
+    position: relative;
+    width: 400px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-container {
+    display: flex;
+    width: 200%;
+    transition: transform 0.4s ease-in-out;
+  }
+  
+  .login-active .form-container {
+    transform: translateX(0);
+  }
+  
+  .register-active .form-container {
+    transform: translateX(-50%);
+  }
+  
+  .login-form,
+  .register-form,
+  .admin-login-form {
+    width: 50%;
+    padding: 40px;
+    box-sizing: border-box;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+  }
+  
+  
+  .toggle-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .admin-link {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  

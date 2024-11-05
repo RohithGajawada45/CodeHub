@@ -24,6 +24,11 @@
     margin-bottom: 10px;
 }
 
+.outer
+{
+    height: 800px;
+}
+
 .show-members-button {
     margin-top: 10px;
     padding: 6px 12px;
@@ -31,7 +36,8 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    width:150px;
+    
 }
 
 

@@ -9,6 +9,7 @@ import Pricingpage from "./components/Pricingpage";
 import Form from "./components/Form";
 import Admin from "./components/Admin";
 import Gemini from "./components/Gimini";
+import Login from "./components/Login";
 
 const App = () => (
   <Router>
@@ -51,8 +52,9 @@ const App = () => (
         <Route path="/about" element={<About/>}/>
         <Route path="/pricing" element={<Pricingpage/>}/>
         <Route path="/success" element={<Form/>}/>
-        <Route path="/admin12345678" element={<Admin/>}/>
+        <Route path="/admin" element={<Admin/>}/>
         <Route path="/gemini" element={<Gemini/>}/>
+        <Route path="/login" element={<Login/>}></Route>
       </Routes>
     </div>
   </Router>

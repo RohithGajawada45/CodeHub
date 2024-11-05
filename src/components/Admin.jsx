@@ -115,7 +115,7 @@ const Admin = () => {
     }
 
     return (
-        <div className="bg-discount-gradient">
+        <div className="outer bg-discount-gradient">
             <div className="admin-container">
                 <h2 className="text-gradient font-bold text-xl">Submitted Teams</h2>
                 {data.length > 0 ? (
@@ -127,7 +127,7 @@ const Admin = () => {
                                     <p>Instance Type: {item.instanceType}</p>
                                     <p>Duration: {item.durationInHours} hours</p>
                                 </div>
-                                <button onClick={() => handleShowMembers(item.members)} className="show-members-button bg-blue-gradient font-bold">
+                                <button onClick={() => handleShowMembers(item.members)} className="show-members-button bg-blue-gradient font-bold rounded-full">
                                     Show Members
                                 </button>
                                 <div className="ip-address-form">

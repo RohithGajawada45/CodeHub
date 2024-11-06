@@ -105,13 +105,13 @@ const UserNotification = ({ email }) => {
         <p style={styles.additionalInfo}>No IP address found for your account.</p>
       )}
 
-      {timeLeft ? (
+      {/* {timeLeft ? (
         <div style={styles.countdown}>
           <p>Time Left: {timeLeft}</p>
         </div>
       ) : (
         <p style={styles.additionalInfo}>Loading time countdown...</p>
-      )}
+      )} */}
     </div>
   );
 };

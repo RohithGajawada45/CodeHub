@@ -20,17 +20,16 @@ const Admin = () => {
             try {
                 const response = await axios.get("https://codehub-2fd81-default-rtdb.firebaseio.com/tasks.json");
                 const fetchedData = response.data;
-
+        
                 if (fetchedData) {
                     const formattedData = await Promise.all(
                         Object.keys(fetchedData).map(async (key) => {
                             const taskData = fetchedData[key];
                             const taskRef = ref(database, 'tasks/' + key);
-
-                            // Check if the task has an IP address field
+        
                             const snapshot = await get(taskRef);
                             const ipAddress = snapshot.exists() ? snapshot.val().ipAddress : null;
-
+        
                             return {
                                 id: key,
                                 ...taskData,
@@ -41,16 +40,16 @@ const Admin = () => {
                         })
                     );
                     setData(formattedData);
-
-                    // Calculate the remaining time based on timestamp
+        
+                    // Calculate remaining time
                     const initialCountdowns = formattedData.reduce((acc, task) => {
-                        const elapsedTime = Math.floor((Date.now() - task.timestamp) / 1000); // Calculate elapsed time in seconds
-                        const remainingTime = Math.max(task.durationInSeconds - elapsedTime, 0); // Remaining time after subtracting elapsed time
+                        const elapsedTime = Math.floor((Date.now() - task.timestamp) / 1000);
+                        const remainingTime = Math.max(task.durationInSeconds - elapsedTime, 0); // Make sure it's non-negative
                         acc[task.id] = remainingTime;
                         return acc;
                     }, {});
-
-                    setCountdown(initialCountdowns); // Set initial countdown state
+        
+                    setCountdown(initialCountdowns);
                 } else {
                     setData([]);
                 }
@@ -60,6 +59,7 @@ const Admin = () => {
                 setLoading(false);
             }
         };
+        
 
         fetchData();
     }, []);
@@ -144,15 +144,16 @@ const Admin = () => {
                 Object.keys(updatedCountdown).forEach((id) => {
                     if (updatedCountdown[id] > 0) {
                         updatedCountdown[id] -= 1; // Decrement countdown by 1 second
+                    } else {
+                        updatedCountdown[id] = 0; // Ensure countdown never goes negative
                     }
                 });
                 return updatedCountdown;
             });
         }, 1000);
-
+    
         return () => clearInterval(intervalId);
     }, []);
-
     const formatTime = (seconds) => {
         // Ensure the seconds is a valid number and is not NaN
         if (isNaN(seconds) || seconds <= 0) return 'Done';

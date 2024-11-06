@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase"; // Import Firebase Auth
+import { auth } from "../firebase"; // Firebase Auth
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"; // Firebase auth functions
-import "./login.css"; // Import your CSS file
+import "./login.css"; // Your CSS file
 
 const Login = ({ onLoginSuccess }) => {
   const [isLoginActive, setIsLoginActive] = useState(true);
@@ -48,12 +48,14 @@ const Login = ({ onLoginSuccess }) => {
     if (adminData.email === "admin@test.com" && adminData.password === "admin123") {
       alert("Admin login successful!");
       setAdminData({ email: "", password: "" });
-      navigate("/admin"); // Redirect to admin page
+      onLoginSuccess(true); // Pass 'true' for admin login
+      navigate("/admin");
     } else {
-      alert("Invalid admin credentials."); // Display error
+      alert("Invalid admin credentials.");
       setAdminData({ email: "", password: "" });
     }
   };
+  
 
   return (
     <div className="auth-container">

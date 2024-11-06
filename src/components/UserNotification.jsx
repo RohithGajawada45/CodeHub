@@ -1,7 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { database, ref, get } from "../firebase"; // Import Firebase functions
+import { child } from "firebase/database"; // Used for querying nested data
 
 const UserNotification = ({ email }) => {
-  console.log("Received email in UserNotification:", email); // Debugging email prop
+  console.log("Received email in UserNotification:", email);
+
+  const [ipAddress, setIpAddress] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(null);
+
+  useEffect(() => {
+    // Fetch user data from the Realtime Database based on the email
+    const fetchTaskData = async () => {
+      const userRef = ref(database, "tasks/" + email); // Path to the user's data in Realtime Database
+      const snapshot = await get(userRef);
+
+      if (snapshot.exists()) {
+        const taskData = snapshot.val(); // Get the data from the snapshot
+        if (taskData.ipAddress) {
+          setIpAddress(taskData.ipAddress);
+
+          // Assuming timestamp is stored as a Unix timestamp or ISO string
+          const timestamp = new Date(taskData.timestamp); // Convert to Date object
+          if (timestamp) {
+            startCountdown(timestamp);
+          }
+        }
+      } else {
+        console.log("No task data found for this email.");
+      }
+    };
+
+    fetchTaskData();
+  }, [email]);
+
+  const startCountdown = (timestamp) => {
+    const interval = setInterval(() => {
+      const currentTime = new Date();
+      const timeDifference = timestamp - currentTime;
+      if (timeDifference <= 0) {
+        clearInterval(interval);
+        setTimeLeft("Time's up!");
+      } else {
+        const seconds = Math.floor((timeDifference / 1000) % 60);
+        const minutes = Math.floor((timeDifference / 1000 / 60) % 60);
+        const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+        setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+      }
+    }, 1000); // Update countdown every second
+  };
 
   const styles = {
     container: {
@@ -27,13 +75,38 @@ const UserNotification = ({ email }) => {
       fontSize: '16px',
       color: '#777',
     },
+    ipAddress: {
+      fontSize: '16px',
+      color: '#333',
+      marginBottom: '10px',
+    },
+    countdown: {
+      fontSize: '18px',
+      color: '#d9534f', // Red color for countdown
+      fontWeight: 'bold',
+    },
   };
 
   return (
     <div style={styles.container}>
       <h2 style={styles.heading}>Welcome to Notifications</h2>
       <p style={styles.emailText}>Your email: {email}</p>
-      <p style={styles.additionalInfo}>You will receive notifications here regarding updates and actions.</p>
+
+      {ipAddress ? (
+        <div style={styles.ipAddress}>
+          <p>Your IP Address: {ipAddress}</p>
+        </div>
+      ) : (
+        <p style={styles.additionalInfo}>No IP address found for your account.</p>
+      )}
+
+      {timeLeft ? (
+        <div style={styles.countdown}>
+          <p>Time Left: {timeLeft}</p>
+        </div>
+      ) : (
+        <p style={styles.additionalInfo}>Loading time countdown...</p>
+      )}
     </div>
   );
 };

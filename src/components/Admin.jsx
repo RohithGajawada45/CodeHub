@@ -34,11 +34,19 @@ const Admin = () => {
                             return {
                                 id: key,
                                 ...taskData,
-                                ipAddress
+                                ipAddress,
+                                countdown: taskData.durationInSeconds // Use durationInSeconds directly
                             };
                         })
                     );
                     setData(formattedData);
+
+                    // Initialize countdown state with the fetched tasks' countdown values
+                    const initialCountdowns = formattedData.reduce((acc, task) => {
+                        acc[task.id] = task.countdown; // Set countdown from the Firebase field
+                        return acc;
+                    }, {});
+                    setCountdown(initialCountdowns); // Set initial countdown state
                 } else {
                     setData([]);
                 }
@@ -82,15 +90,16 @@ const Admin = () => {
         .then((response) => {
             console.log("Email sent successfully:", response.status, response.text);
             alert("IP address sent successfully!");
-            
+
             setSentStatus((prev) => ({
                 ...prev,
                 [id]: true 
             }));
-            
+
+            // Reset countdown after sending the IP address
             setCountdown((prev) => ({
                 ...prev,
-                [id]: duration * 60 * 60 
+                [id]: duration * 60 // Set countdown in minutes (duration in seconds from Firebase)
             }));
 
             const taskRef = ref(database, 'tasks/' + id);
@@ -98,15 +107,15 @@ const Admin = () => {
                 teamName,
                 ipAddress,
                 adminEmail: email,
-                timestamp: Date.now(),
-                durationInSeconds: duration * 60 * 60
+                timestamp: Date.now(), // This adds the timestamp
+                durationInSeconds: duration * 60
             })
             .then(() => {
                 console.log("Task data saved to Firebase successfully");
             })
             .catch((error) => {
                 console.error("Error saving task data to Firebase:", error);
-            });
+            });            
         })
         .catch((error) => {
             console.error("Error sending email:", error);
@@ -130,7 +139,7 @@ const Admin = () => {
                 const updatedCountdown = { ...prevCountdown };
                 Object.keys(updatedCountdown).forEach((id) => {
                     if (updatedCountdown[id] > 0) {
-                        updatedCountdown[id] -= 1;
+                        updatedCountdown[id] -= 1; // Decrement countdown by 1 second
                     }
                 });
                 return updatedCountdown;
@@ -141,7 +150,8 @@ const Admin = () => {
     }, []);
 
     const formatTime = (seconds) => {
-        if (seconds <= 0) return 'Done';
+        // Ensure the seconds is a valid number and is not NaN
+        if (isNaN(seconds) || seconds <= 0) return 'Done';
         const hours = Math.floor(seconds / 3600);
         const minutes = Math.floor((seconds % 3600) / 60);
         const secs = seconds % 60;

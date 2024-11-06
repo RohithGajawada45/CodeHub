@@ -35,17 +35,21 @@ const Admin = () => {
                                 id: key,
                                 ...taskData,
                                 ipAddress,
-                                countdown: taskData.durationInSeconds // Use durationInSeconds directly
+                                timestamp: taskData.timestamp,
+                                durationInSeconds: taskData.durationInSeconds
                             };
                         })
                     );
                     setData(formattedData);
 
-                    // Initialize countdown state with the fetched tasks' countdown values
+                    // Calculate the remaining time based on timestamp
                     const initialCountdowns = formattedData.reduce((acc, task) => {
-                        acc[task.id] = task.countdown; // Set countdown from the Firebase field
+                        const elapsedTime = Math.floor((Date.now() - task.timestamp) / 1000); // Calculate elapsed time in seconds
+                        const remainingTime = Math.max(task.durationInSeconds - elapsedTime, 0); // Remaining time after subtracting elapsed time
+                        acc[task.id] = remainingTime;
                         return acc;
                     }, {});
+
                     setCountdown(initialCountdowns); // Set initial countdown state
                 } else {
                     setData([]);

@@ -10,14 +10,17 @@ import Form from "./components/Form";
 import Admin from "./components/Admin";
 import Gemini from "./components/Gimini";
 import Login from "./components/Login";
-import UserNotification from "./components/UserNotificationPage"; // Import UserNotification
+import UserNotification from "./components/UserNotification"; // Import UserNotification
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [userEmail, setUserEmail] = useState(""); // State to store the user's email
 
   // Function to handle successful login
-  const handleLoginSuccess = () => {
+  const handleLoginSuccess = (email) => {
+    console.log("Email received in App.js:", email); // Debugging: Log the email in App.js
     setIsLoggedIn(true); // Update login status to true
+    setUserEmail(email); // Store the email
   };
 
   return (
@@ -64,8 +67,7 @@ const App = () => {
                 <Route path="/success" element={<Form />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/gemini" element={<Gemini />} />
-                {/* Add route for UserNotification page */}
-                <Route path="/notifications" element={<UserNotification />} />
+                <Route path="/notifications" element={<UserNotification email={userEmail} />} /> {/* Pass email as prop */}
               </Routes>
             )}
           </div>

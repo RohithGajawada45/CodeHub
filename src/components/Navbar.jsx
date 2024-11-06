@@ -22,13 +22,13 @@ const Navbar = () => {
             } ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
             onClick={() => setActive(nav.title)}
           >
-            <a href={`#${nav.id}`}>{nav.title}</a>
+            <Link to={`#${nav.id}`}>{nav.title}</Link> {/* Use Link here */}
           </li>
         ))}
         
         {/* Notification link */}
         <li className="font-poppins font-normal cursor-pointer text-[16px] text-white mr-10">
-          <Link to="/notifications">Notifications</Link>
+          <Link to="/notifications">Notifications</Link> {/* Correct Link usage */}
         </li>
       </ul>
 
@@ -54,13 +54,13 @@ const Navbar = () => {
                 } ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}`}
                 onClick={() => setActive(nav.title)}
               >
-                <a href={`#${nav.id}`}>{nav.title}</a>
+                <Link to={`#${nav.id}`}>{nav.title}</Link> {/* Use Link here */}
               </li>
             ))}
             
             {/* Notification link in mobile view */}
             <li className="font-poppins font-medium cursor-pointer text-[16px] text-white mb-4">
-              <Link to="/notifications">Notifications</Link>
+              <Link to="/notifications">Notifications</Link> {/* Correct Link usage */}
             </li>
           </ul>
         </div>

@@ -35,7 +35,8 @@ const Login = ({ onLoginSuccess }) => {
     try {
       await signInWithEmailAndPassword(auth, userData.email, userData.password);
       alert("Login successful!");
-      onLoginSuccess(); // Call onLoginSuccess to update the parent state
+      console.log("User logged in with email:", userData.email); // Debugging: Log the email
+      onLoginSuccess(userData.email); // Pass the email to the parent component
       navigate("/"); // Redirect to the home page after successful login
     } catch (error) {
       alert("Invalid credentials, please try again."); // Display error
@@ -47,8 +48,9 @@ const Login = ({ onLoginSuccess }) => {
     e.preventDefault();
     if (adminData.email === "admin@test.com" && adminData.password === "admin123") {
       alert("Admin login successful!");
+      console.log("Admin logged in with email:", adminData.email); // Debugging: Log the email
       setAdminData({ email: "", password: "" });
-      onLoginSuccess(true); // Pass 'true' for admin login
+      onLoginSuccess(adminData.email); // Pass admin email to the parent component
       navigate("/admin");
     } else {
       alert("Invalid admin credentials.");

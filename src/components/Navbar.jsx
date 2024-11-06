@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom"; // Import Link for navigation
 import { close, menu } from "../assets";
 import { navLinks } from "../constants";
 // import codehub1 from '../assets/codehub1.png';
@@ -25,6 +25,11 @@ const Navbar = () => {
             <a href={`#${nav.id}`}>{nav.title}</a>
           </li>
         ))}
+        
+        {/* Notification link */}
+        <li className="font-poppins font-normal cursor-pointer text-[16px] text-white mr-10">
+          <Link to="/notifications">Notifications</Link>
+        </li>
       </ul>
 
       <div className="sm:hidden flex flex-1 justify-end items-center">
@@ -52,6 +57,11 @@ const Navbar = () => {
                 <a href={`#${nav.id}`}>{nav.title}</a>
               </li>
             ))}
+            
+            {/* Notification link in mobile view */}
+            <li className="font-poppins font-medium cursor-pointer text-[16px] text-white mb-4">
+              <Link to="/notifications">Notifications</Link>
+            </li>
           </ul>
         </div>
       </div>

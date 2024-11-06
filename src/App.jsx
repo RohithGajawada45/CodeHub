@@ -10,6 +10,7 @@ import Form from "./components/Form";
 import Admin from "./components/Admin";
 import Gemini from "./components/Gimini";
 import Login from "./components/Login";
+import UserNotification from "./components/UserNotificationPage"; // Import UserNotification
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
@@ -63,6 +64,8 @@ const App = () => {
                 <Route path="/success" element={<Form />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/gemini" element={<Gemini />} />
+                {/* Add route for UserNotification page */}
+                <Route path="/notifications" element={<UserNotification />} />
               </Routes>
             )}
           </div>

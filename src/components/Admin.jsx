@@ -198,6 +198,7 @@ const Admin = () => {
                                             <p className="countdown-timer font-bold text-lg text-white">
                                                 Countdown: {formatTime(countdown[item.id])}
                                             </p>
+                                            <p className="font-bold text-white">IP Address: {item.ipAddress}</p>
                                         </div>
                                     ) : (
                                         <>
@@ -240,6 +241,6 @@ const Admin = () => {
             )}
         </div>
     );
-}
+};
 
 export default Admin;

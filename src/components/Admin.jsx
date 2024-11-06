@@ -69,9 +69,10 @@ const Admin = () => {
                 [id]: true 
             }));
             
+            // Set the countdown to the duration in seconds (duration in hours * 3600)
             setCountdown((prev) => ({
                 ...prev,
-                [id]: duration * 60 * 60
+                [id]: duration * 60 * 60 // convert hours to seconds
             }));
         })
         .catch((error) => {
@@ -90,6 +91,7 @@ const Admin = () => {
         setSelectedMembers([]);
     };
 
+    // Countdown logic to update every second
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCountdown((prevCountdown) => {
@@ -105,6 +107,14 @@ const Admin = () => {
 
         return () => clearInterval(intervalId);
     }, []);
+
+    const formatTime = (seconds) => {
+        if (seconds <= 0) return 'Done';
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    };
 
     if (loading) {
         return <div className="loading">Loading...</div>;
@@ -135,7 +145,7 @@ const Admin = () => {
                                     {sentStatus[item.id] ? (
                                         <div>
                                             <p className="countdown-timer font-bold text-lg text-white">
-                                                Countdown: {countdown[item.id] > 0 ? countdown[item.id] : "Done"}
+                                                Countdown: {formatTime(countdown[item.id])}
                                             </p>
                                         </div>
                                     ) : (

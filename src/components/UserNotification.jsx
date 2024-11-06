@@ -11,22 +11,27 @@ const UserNotification = ({ email }) => {
   useEffect(() => {
     // Fetch user data from the Realtime Database based on the email
     const fetchTaskData = async () => {
-      const userRef = ref(database, "tasks/" + email); // Path to the user's data in Realtime Database
+      const userRef = ref(database, "tasks/"); // Path to the tasks node
       const snapshot = await get(userRef);
 
       if (snapshot.exists()) {
-        const taskData = snapshot.val(); // Get the data from the snapshot
-        if (taskData.ipAddress) {
-          setIpAddress(taskData.ipAddress);
+        // Loop through all tasks to find the matching email
+        snapshot.forEach((childSnapshot) => {
+          const taskData = childSnapshot.val();
+          if (taskData.adminEmail === email) {
+            if (taskData.ipAddress) {
+              setIpAddress(taskData.ipAddress);
+            }
 
-          // Assuming timestamp is stored as a Unix timestamp or ISO string
-          const timestamp = new Date(taskData.timestamp); // Convert to Date object
-          if (timestamp) {
-            startCountdown(timestamp);
+            // Assuming timestamp is stored as a Unix timestamp or ISO string
+            const timestamp = new Date(taskData.timestamp); // Convert to Date object
+            if (timestamp) {
+              startCountdown(timestamp);
+            }
           }
-        }
+        });
       } else {
-        console.log("No task data found for this email.");
+        console.log("No task data found.");
       }
     };
 

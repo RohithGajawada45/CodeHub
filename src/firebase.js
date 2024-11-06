@@ -1,10 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
-const firebaseConfig = 
-{
+const firebaseConfig = {
   apiKey: "AIzaSyA1PXKtvbCVPwVyfCW8VCqXU8PxmCHkPSo",
   authDomain: "codehub-2fd81.firebaseapp.com",
   projectId: "codehub-2fd81",
@@ -15,7 +12,6 @@ const firebaseConfig =
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
 export { auth };

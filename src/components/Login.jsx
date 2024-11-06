@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./login.css";
+import { auth } from "../firebase"; // Import Firebase Auth
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"; // Firebase auth functions
+import "./login.css"; // Import your CSS file
 
 const Login = () => {
   const [isLoginActive, setIsLoginActive] = useState(true);
@@ -9,79 +11,85 @@ const Login = () => {
   const [adminData, setAdminData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
+  // Toggle between login and register views
   const toggleView = () => {
     setIsLoginActive(!isLoginActive);
   };
 
-  const handleRegister = (e) => {
+  // Register a new user
+  const handleRegister = async (e) => {
     e.preventDefault();
-    localStorage.setItem(userData.email, JSON.stringify(userData));
-    alert("Registration successful! Please log in.");
-    setUserData({ email: "", password: "" });
-    setIsLoginActive(true);
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const storedUser = JSON.parse(localStorage.getItem(userData.email));
-    if (storedUser && storedUser.password === userData.password) {
-      alert("Login successful!");
-      navigate("/");
-    } else {
-      alert("Invalid credentials, please try again.");
+    try {
+      await createUserWithEmailAndPassword(auth, userData.email, userData.password);
+      alert("Registration successful! Please log in.");
+      setUserData({ email: "", password: "" }); // Reset form fields
+      setIsLoginActive(true); // Switch to login view
+    } catch (error) {
+      alert(error.message); // Display error
     }
   };
 
+  // Login an existing user
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, userData.email, userData.password);
+      alert("Login successful!");
+      navigate("/"); // Redirect to home page
+    } catch (error) {
+      alert("Invalid credentials, please try again."); // Display error
+    }
+  };
+
+  // Login an admin (local validation only, not using Firebase Auth)
   const handleAdminLogin = (e) => {
     e.preventDefault();
     if (adminData.email === "admin@test.com" && adminData.password === "admin123") {
       alert("Admin login successful!");
-      setAdminData({email:"",password:""});
-      navigate("/admin");
+      setAdminData({ email: "", password: "" });
+      navigate("/admin"); // Redirect to admin page
     } else {
-      alert("Invalid admin credentials.");
-      setAdminData({email:"",password:""});
+      alert("Invalid admin credentials."); // Display error
+      setAdminData({ email: "", password: "" });
     }
   };
 
   return (
-    <div className="auth-container bg-discount-gradient">
+    <div className="auth-container">
       <div className={`auth-panel ${isLoginActive ? "login-active" : "register-active"}`}>
-        <div className="form-container bg-black-gradient-2 boder border-white/20">
+        <div className="form-container">
           {!isAdminLogin ? (
             <>
+              {/* User Login Form */}
               <div className="login-form">
-                <h2 className="text-gradient font-bold text-xl">Login</h2>
+                <h2>Login</h2>
                 <form onSubmit={handleLogin}>
                   <input
                     type="email"
                     placeholder="Email"
-                    className="rounded"
                     value={userData.email}
                     onChange={(e) => setUserData({ ...userData, email: e.target.value })}
                     required
                   />
                   <input
                     type="password"
-                    className="rounded"
                     placeholder="Password"
                     value={userData.password}
                     onChange={(e) => setUserData({ ...userData, password: e.target.value })}
                     required
                   />
-                  <button type="submit" className="bg-blue-gradient text-black font-bold">Login</button>
+                  <button type="submit">Login</button>
                 </form>
-                <button onClick={() => setIsAdminLogin(true)} className="admin-link text-gradient">
-                  Login as Admin
-                </button>
+                <button onClick={() => setIsAdminLogin(true)}>Login as Admin</button>
               </div>
+
+              {/* User Register Form */}
               <div className="register-form">
-                <h2 className="text-gradient font-bold">Register</h2>
+                <h2>Register</h2>
                 <form onSubmit={handleRegister}>
                   <input
                     type="email"
                     placeholder="Email"
-                    className="rounded"
                     value={userData.email}
                     onChange={(e) => setUserData({ ...userData, email: e.target.value })}
                     required
@@ -89,12 +97,11 @@ const Login = () => {
                   <input
                     type="password"
                     placeholder="Password"
-                    className="rounded"
                     value={userData.password}
                     onChange={(e) => setUserData({ ...userData, password: e.target.value })}
                     required
                   />
-                  <button type="submit" className="bg-blue-gradient font-bold text-black">Register</button>
+                  <button type="submit">Register</button>
                 </form>
               </div>
             </>
@@ -105,7 +112,6 @@ const Login = () => {
                 <input
                   type="email"
                   placeholder="Admin Email"
-                  className="rounded"
                   value={adminData.email}
                   onChange={(e) => setAdminData({ ...adminData, email: e.target.value })}
                   required
@@ -113,22 +119,21 @@ const Login = () => {
                 <input
                   type="password"
                   placeholder="Password"
-                  className="rounded"
                   value={adminData.password}
                   onChange={(e) => setAdminData({ ...adminData, password: e.target.value })}
                   required
                 />
-                <button type="submit" className="bg-blue-gradient font-bold text-black">Login as Admin</button>
+                <button type="submit">Login as Admin</button>
               </form>
-              <button onClick={() => setIsAdminLogin(false)} className=" text-gradient admin-link">
-                Back to User Login
-              </button>
+              <button onClick={() => setIsAdminLogin(false)}>Back to User Login</button>
             </div>
           )}
         </div>
+
+        {/* Toggle Button for Switching Views */}
         {!isAdminLogin && (
           <div className="toggle-container">
-            <button onClick={toggleView} className="bg-blue-gradient text-black font-bold rounded-full">
+            <button onClick={toggleView}>
               {isLoginActive ? "Switch to Register" : "Switch to Login"}
             </button>
           </div>

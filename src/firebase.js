@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getDatabase, ref, set, get } from "firebase/database"; // Import Realtime Database methods
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1PXKtvbCVPwVyfCW8VCqXU8PxmCHkPSo",
@@ -14,4 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export { auth };
+// Initialize Firebase Realtime Database
+const database = getDatabase(app);
+
+export { auth, database, ref, set, get }; // Export the necessary functions for database operations

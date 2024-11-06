@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
+import { set, ref, get } from 'firebase/database'; // Import Firebase methods
+import { database } from '../firebase'; // Import your Firebase setup
 import './Admin.css';
 
 const Admin = () => {
@@ -20,10 +22,22 @@ const Admin = () => {
                 const fetchedData = response.data;
 
                 if (fetchedData) {
-                    const formattedData = Object.keys(fetchedData).map(key => ({
-                        id: key,
-                        ...fetchedData[key]
-                    }));
+                    const formattedData = await Promise.all(
+                        Object.keys(fetchedData).map(async (key) => {
+                            const taskData = fetchedData[key];
+                            const taskRef = ref(database, 'tasks/' + key);
+
+                            // Check if the task has an IP address field
+                            const snapshot = await get(taskRef);
+                            const ipAddress = snapshot.exists() ? snapshot.val().ipAddress : null;
+
+                            return {
+                                id: key,
+                                ...taskData,
+                                ipAddress
+                            };
+                        })
+                    );
                     setData(formattedData);
                 } else {
                     setData([]);
@@ -47,7 +61,12 @@ const Admin = () => {
 
     const handleSendClick = (email, id, teamName, duration) => {
         const ipAddress = ipAddresses[id];
-        
+
+        if (!ipAddress) {
+            alert("Please enter an IP address before sending.");
+            return;
+        }
+
         const templateParams = {
             team_name: teamName,
             ip_address: ipAddress,
@@ -55,10 +74,10 @@ const Admin = () => {
         };
 
         emailjs.send(
-            'service_drueih7',          
-            'template_fll42xd',         
+            'service_drueih7',
+            'template_fll42xd',
             templateParams,
-            '4MnSF-QGuGJ8migmL'          
+            '4MnSF-QGuGJ8migmL'
         )
         .then((response) => {
             console.log("Email sent successfully:", response.status, response.text);
@@ -69,11 +88,25 @@ const Admin = () => {
                 [id]: true 
             }));
             
-            // Set the countdown to the duration in seconds (duration in hours * 3600)
             setCountdown((prev) => ({
                 ...prev,
-                [id]: duration * 60 * 60 // convert hours to seconds
+                [id]: duration * 60 * 60 
             }));
+
+            const taskRef = ref(database, 'tasks/' + id);
+            set(taskRef, {
+                teamName,
+                ipAddress,
+                adminEmail: email,
+                timestamp: Date.now(),
+                durationInSeconds: duration * 60 * 60
+            })
+            .then(() => {
+                console.log("Task data saved to Firebase successfully");
+            })
+            .catch((error) => {
+                console.error("Error saving task data to Firebase:", error);
+            });
         })
         .catch((error) => {
             console.error("Error sending email:", error);
@@ -91,7 +124,6 @@ const Admin = () => {
         setSelectedMembers([]);
     };
 
-    // Countdown logic to update every second
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCountdown((prevCountdown) => {
@@ -141,8 +173,8 @@ const Admin = () => {
                                     Show Members
                                 </button>
                                 <div className="ip-address-form">
-                                <br></br>
-                                    {sentStatus[item.id] ? (
+                                    <br />
+                                    {item.ipAddress ? (
                                         <div>
                                             <p className="countdown-timer font-bold text-lg text-white">
                                                 Countdown: {formatTime(countdown[item.id])}
@@ -156,7 +188,10 @@ const Admin = () => {
                                                 onChange={(event) => handleIpChange(item.id, event)}
                                                 placeholder="Enter IP Address"
                                             />
-                                            <button className="ip-send font-bold bg-blue-gradient text-black rounded p-2" onClick={() => handleSendClick(item.email, item.id, item.teamName, item.durationInHours)}>
+                                            <button 
+                                                className="ip-send font-bold bg-blue-gradient text-black rounded p-2"
+                                                onClick={() => handleSendClick(item.email, item.id, item.teamName, item.durationInHours)}
+                                            >
                                                 Send
                                             </button>
                                         </>
@@ -174,7 +209,7 @@ const Admin = () => {
                 <div className="modal-overlay">
                     <div className="modal-content bg-discount-gradient border border-white/20">
                         <h3 className="text-gradient font-bold text-xl">Team Members</h3>
-                        <br></br>
+                        <br />
                         <ul className="text-white font-bold">
                             {selectedMembers.map((member, index) => (
                                 <li key={index}>{member}</li>

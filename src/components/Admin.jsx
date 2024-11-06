@@ -178,41 +178,45 @@ const Admin = () => {
                     <div className="team-list">
                         {data.map((item) => (
                             <div key={item.id} className={`team-item ${countdown[item.id] <= 0 ? 'bg-red-500' : 'bg-black-gradient-2'} border border-white/20`}>
-                            <div className="record-details font-bold text-white">
-                                <label>Team Name: {item.teamName}</label>
-                                <p>Instance Type: {item.instanceType}</p>
-                                <p>Duration: {item.durationInHours} hours</p>
-                            </div>
-                            <button onClick={() => handleShowMembers(item.members)} className="show-members-button bg-blue-gradient font-bold rounded-full">
-                                Show Members
-                            </button>
-                            <div className="ip-address-form">
-                                <br />
-                                {item.ipAddress ? (
-                                    <div>
-                                        <p className="countdown-timer font-bold text-lg text-white">
-                                            Countdown: {formatTime(countdown[item.id])}
-                                        </p>
-                                    </div>
-                                ) : (
-                                    <>
-                                        <input
-                                            type="text"
-                                            value={ipAddresses[item.id] || ''}
-                                            onChange={(event) => handleIpChange(item.id, event)}
-                                            placeholder="Enter IP Address"
-                                        />
-                                        <button 
-                                            className="ip-send font-bold bg-blue-gradient text-black rounded p-2"
-                                            onClick={() => handleSendClick(item.email, item.id, item.teamName, item.durationInHours)}
-                                        >
-                                            Send
-                                        </button>
-                                    </>
+                                <div className="record-details font-bold text-white">
+                                    <label>Team Name: {item.teamName}</label>
+                                    <p>Instance Type: {item.instanceType}</p>
+                                    <p>Duration: {item.durationInHours} hours</p>
+                                </div>
+
+                                {/* Render "Show Members" button only if there are team members */}
+                                {item.members && item.members.length > 0 && (
+                                    <button onClick={() => handleShowMembers(item.members)} className="show-members-button bg-blue-gradient font-bold rounded-full">
+                                        Show Members
+                                    </button>
                                 )}
+
+                                <div className="ip-address-form">
+                                    <br />
+                                    {item.ipAddress ? (
+                                        <div>
+                                            <p className="countdown-timer font-bold text-lg text-white">
+                                                Countdown: {formatTime(countdown[item.id])}
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <input
+                                                type="text"
+                                                value={ipAddresses[item.id] || ''}
+                                                onChange={(event) => handleIpChange(item.id, event)}
+                                                placeholder="Enter IP Address"
+                                            />
+                                            <button 
+                                                className="ip-send font-bold bg-blue-gradient text-black rounded p-2"
+                                                onClick={() => handleSendClick(item.email, item.id, item.teamName, item.durationInHours)}
+                                            >
+                                                Send
+                                            </button>
+                                        </>
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                        
                         ))}
                     </div>
                 ) : (

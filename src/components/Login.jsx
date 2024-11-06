@@ -68,6 +68,7 @@ const Login = ({ onLoginSuccess }) => {
                 <h2>Login</h2>
                 <form onSubmit={handleLogin}>
                   <input
+                    className="input-field"
                     type="email"
                     placeholder="Email"
                     value={userData.email}
@@ -75,15 +76,16 @@ const Login = ({ onLoginSuccess }) => {
                     required
                   />
                   <input
+                    className="input-field"
                     type="password"
                     placeholder="Password"
                     value={userData.password}
                     onChange={(e) => setUserData({ ...userData, password: e.target.value })}
                     required
                   />
-                  <button type="submit">Login</button>
+                  <button className="login-button" type="submit">Login</button>
                 </form>
-                <button onClick={() => setIsAdminLogin(true)}>Login as Admin</button>
+                <button className="switch-button" onClick={() => setIsAdminLogin(true)}>Login as Admin</button>
               </div>
 
               {/* User Register Form */}
@@ -91,6 +93,7 @@ const Login = ({ onLoginSuccess }) => {
                 <h2>Register</h2>
                 <form onSubmit={handleRegister}>
                   <input
+                    className="input-field"
                     type="email"
                     placeholder="Email"
                     value={userData.email}
@@ -98,13 +101,14 @@ const Login = ({ onLoginSuccess }) => {
                     required
                   />
                   <input
+                    className="input-field"
                     type="password"
                     placeholder="Password"
                     value={userData.password}
                     onChange={(e) => setUserData({ ...userData, password: e.target.value })}
                     required
                   />
-                  <button type="submit">Register</button>
+                  <button className="register-button" type="submit">Register</button>
                 </form>
               </div>
             </>
@@ -113,6 +117,7 @@ const Login = ({ onLoginSuccess }) => {
               <h2>Admin Login</h2>
               <form onSubmit={handleAdminLogin}>
                 <input
+                  className="input-field"
                   type="email"
                   placeholder="Admin Email"
                   value={adminData.email}
@@ -120,15 +125,16 @@ const Login = ({ onLoginSuccess }) => {
                   required
                 />
                 <input
+                  className="input-field"
                   type="password"
                   placeholder="Password"
                   value={adminData.password}
                   onChange={(e) => setAdminData({ ...adminData, password: e.target.value })}
                   required
                 />
-                <button type="submit">Login as Admin</button>
+                <button className="admin-login-button" type="submit">Login as Admin</button>
               </form>
-              <button onClick={() => setIsAdminLogin(false)}>Back to User Login</button>
+              <button className="switch-button" onClick={() => setIsAdminLogin(false)}>Back to User Login</button>
             </div>
           )}
         </div>
@@ -136,7 +142,7 @@ const Login = ({ onLoginSuccess }) => {
         {/* Toggle Button for Switching Views */}
         {!isAdminLogin && (
           <div className="toggle-container">
-            <button onClick={toggleView}>
+            <button className="switch-button" onClick={toggleView}>
               {isLoginActive ? "Switch to Register" : "Switch to Login"}
             </button>
           </div>

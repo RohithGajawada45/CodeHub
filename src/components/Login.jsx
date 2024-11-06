@@ -4,7 +4,7 @@ import { auth } from "../firebase"; // Import Firebase Auth
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"; // Firebase auth functions
 import "./login.css"; // Import your CSS file
 
-const Login = () => {
+const Login = ({ onLoginSuccess }) => {
   const [isLoginActive, setIsLoginActive] = useState(true);
   const [isAdminLogin, setIsAdminLogin] = useState(false);
   const [userData, setUserData] = useState({ email: "", password: "" });
@@ -35,7 +35,8 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, userData.email, userData.password);
       alert("Login successful!");
-      navigate("/"); // Redirect to home page
+      onLoginSuccess(); // Call onLoginSuccess to update the parent state
+      navigate("/"); // Redirect to the home page after successful login
     } catch (error) {
       alert("Invalid credentials, please try again."); // Display error
     }

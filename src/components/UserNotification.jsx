@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { database, ref, get } from "../firebase"; // Import Firebase functions
-import { child } from "firebase/database"; // Used for querying nested data
 
 const UserNotification = ({ email }) => {
   console.log("Received email in UserNotification:", email);
 
   const [ipAddress, setIpAddress] = useState(null);
   const [timeLeft, setTimeLeft] = useState(null);
+  const [taskData, setTaskData] = useState(null);
 
   useEffect(() => {
     // Fetch user data from the Realtime Database based on the email
@@ -17,16 +17,18 @@ const UserNotification = ({ email }) => {
       if (snapshot.exists()) {
         // Loop through all tasks to find the matching email
         snapshot.forEach((childSnapshot) => {
-          const taskData = childSnapshot.val();
-          if (taskData.adminEmail === email) {
-            if (taskData.ipAddress) {
-              setIpAddress(taskData.ipAddress);
+          const task = childSnapshot.val();
+          if (task.adminEmail === email) {
+            setTaskData(task);
+            if (task.ipAddress) {
+              setIpAddress(task.ipAddress);
             }
 
-            // Assuming timestamp is stored as a Unix timestamp or ISO string
-            const timestamp = new Date(taskData.timestamp); // Convert to Date object
-            if (timestamp) {
-              startCountdown(timestamp);
+            // Start the countdown using the timestamp and duration
+            const timestamp = task.timestamp;
+            const durationInSeconds = task.durationInSeconds;
+            if (timestamp && durationInSeconds) {
+              startCountdown(timestamp, durationInSeconds);
             }
           }
         });
@@ -38,20 +40,20 @@ const UserNotification = ({ email }) => {
     fetchTaskData();
   }, [email]);
 
-  const startCountdown = (timestamp) => {
-    const interval = setInterval(() => {
-      const currentTime = new Date();
-      const timeDifference = timestamp - currentTime;
-      if (timeDifference <= 0) {
-        clearInterval(interval);
+  const startCountdown = (timestamp, durationInSeconds) => {
+    const countdownInterval = setInterval(() => {
+      const currentTime = Date.now();
+      const elapsedTime = Math.floor((currentTime - timestamp) / 1000); // Time elapsed in seconds
+      const remainingTime = Math.max(durationInSeconds - elapsedTime, 0); // Remaining time in seconds
+
+      if (remainingTime <= 0) {
+        clearInterval(countdownInterval);
         setTimeLeft("Time's up!");
       } else {
-        const seconds = Math.floor((timeDifference / 1000) % 60);
-        const minutes = Math.floor((timeDifference / 1000 / 60) % 60);
-        const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
-        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-        setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+        const hours = Math.floor(remainingTime / 3600);
+        const minutes = Math.floor((remainingTime % 3600) / 60);
+        const seconds = remainingTime % 60;
+        setTimeLeft(`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`);
       }
     }, 1000); // Update countdown every second
   };

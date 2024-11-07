@@ -40,7 +40,7 @@ const Navbar = () => {
         {/* Conditionally render the Logout button if the user is logged in */}
         {storedIsLoggedIn && (
           <li
-            className="font-poppins font-normal cursor-pointer text-white"
+            className="font-poppins font-normal cursor-pointer text-white mr-10" // Added mr-10 for consistent margin
             onClick={handleLogout}
           >
             Logout
@@ -80,10 +80,10 @@ const Navbar = () => {
               <Link to="/notifications">Notifications</Link>
             </li>
 
-            {/* Conditionally render the Logout button in mobile view */}
+            {/* Conditionally render the Logout button in mobile view with margin */}
             {storedIsLoggedIn && (
               <li
-                className="font-poppins font-medium cursor-pointer text-[16px] text-white mb-4"
+                className="font-poppins font-medium cursor-pointer text-[16px] text-white mb-4 ml-10" // Added ml-10 for left margin
                 onClick={handleLogout}
               >
                 Logout

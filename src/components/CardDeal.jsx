@@ -13,37 +13,59 @@ const TerminalIntegration = () => {
   } = useTerminal();
 
   useEffect(() => {
-    resetTerminal();
+    resetTerminal(); // Call this only on component mount
+    pushToHistory(
+      <>
+        <div><strong>Welcome!</strong> to the CodeHub terminal.</div>
+        <div className="stylish-text">Learn Git Server Creation. Awesome, right?</div>
+        <br/>
+        <div>You can type commands like <code>start</code> or <code>alert</code> to try them out.</div>
+      </>
+    );
+  }, []); // Empty dependency array to ensure this only runs once
 
-    pushToHistory(<>
-      <div><strong>Welcome!</strong> to the CodeHub terminal.</div>
-      <div className="stylish-text">Learn Git Server Creation. Awesome, right?</div>
-      <br/>
-      <div>You can write: start or alert, to execute some commands.</div>
-    </>);
-
-  }, [pushToHistory, resetTerminal]);
-
+  // Define the commands available in the terminal
   const commands = useMemo(() => ({
     'start': async () => {
-      await pushToHistory(<>
+      pushToHistory(
         <div>
-          <strong>Starting</strong> the server... <span style={{color: 'green'}}>Done</span>
+          <strong>Starting</strong> the server... <span style={{ color: 'green' }}>Done</span>
         </div>
-      </>);
+      );
     },
     'alert': async () => {
       alert('Hello!');
-      await pushToHistory(<>
+      pushToHistory(
         <div>
-          <strong>Alert</strong>
-          <span style={{color: 'orange', marginLeft: 10}}>
-            <strong>Shown in the browser</strong>
-          </span>
+          <strong>Alert:</strong>
+          <span style={{ color: 'orange', marginLeft: 10 }}>Shown in the browser</span>
         </div>
-      </>);
+      );
     },
-  }), [pushToHistory]);
+    'SSH key pair generation': async () => {
+      pushToHistory(
+        <div>
+          <pre>
+            # Switch to your .ssh directory<br />
+            cd ~/.ssh<br /><br />
+
+            # If the directory does not exist, create it via:<br />
+            # mkdir .ssh<br /><br />
+
+            # Manually backup all existing content of this dir!!!<br /><br />
+
+            # Afterwards generate the ssh key<br />
+            ssh-keygen -t rsa -b 4096 -C "your_email@youremail.com"<br /><br />
+
+            # Press enter to select the default directory<br />
+            # You will be prompted for an optional passphrase<br />
+            # A passphrase protects your private key<br />
+            # but you have to enter it manually during ssh operations
+          </pre>
+        </div>
+      );
+    },
+  }), [pushToHistory]); // Include only relevant dependencies
 
   return (
     <section className={layout.section}>
@@ -62,7 +84,7 @@ const TerminalIntegration = () => {
         <Terminal
           history={history}
           ref={setTerminalRef}
-          promptLabel={<>Write something awesome:</>}
+          promptLabel="Write something awesome:"
           commands={commands}
         />
       </div>

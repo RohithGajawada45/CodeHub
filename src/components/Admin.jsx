@@ -72,18 +72,18 @@ const Admin = () => {
 
     const handleSendClick = (email, id, teamName, durationInSeconds) => {
         const ipAddress = ipAddresses[id];
-
+    
         if (!ipAddress) {
             alert("Please enter an IP address before sending.");
             return;
         }
-
+    
         const templateParams = {
             team_name: teamName,
             ip_address: ipAddress,
             admin_email: email
         };
-
+    
         emailjs.send(
             'service_drueih7',
             'template_fll42xd',
@@ -93,24 +93,24 @@ const Admin = () => {
         .then((response) => {
             console.log("Email sent successfully:", response.status, response.text);
             alert("IP address sent successfully!");
-
+    
             setSentStatus((prev) => ({
                 ...prev,
                 [id]: true 
             }));
-
-            // Reset countdown after sending the IP address
+    
+            // Immediately set countdown for the new duration
             setCountdown((prev) => ({
                 ...prev,
-                [id]: durationInSeconds // Set countdown in seconds from Firebase
+                [id]: durationInSeconds 
             }));
-
+    
             const taskRef = ref(database, 'tasks/' + id);
             set(taskRef, {
                 teamName,
                 ipAddress,
                 adminEmail: email,
-                timestamp: Date.now(), // This adds the timestamp
+                timestamp: Date.now(),
                 durationInSeconds
             })
             .then(() => {
@@ -118,13 +118,18 @@ const Admin = () => {
             })
             .catch((error) => {
                 console.error("Error saving task data to Firebase:", error);
-            });            
+            });
+    
+            // Reload the page after the alert
+            window.location.reload();
         })
         .catch((error) => {
             console.error("Error sending email:", error);
             alert("Failed to send IP address. Please try again.");
         });
     };
+    
+    
 
     const handleShowMembers = (members) => {
         setSelectedMembers(members);

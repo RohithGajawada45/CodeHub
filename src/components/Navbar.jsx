@@ -2,11 +2,20 @@ import { useState } from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 import { close, menu } from "../assets";
 import { navLinks } from "../constants";
-// import codehub1 from '../assets/codehub1.png';
 
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
+
+  // Check if the user is logged in from localStorage (or use any other state management you prefer)
+  const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+  // Function to handle logout
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn"); // Remove login status from localStorage
+    localStorage.removeItem("userEmail"); // Optionally remove user data
+    window.location.reload(); // Reload the page to reflect the logout state
+  };
 
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar p-10">
@@ -23,14 +32,23 @@ const Navbar = () => {
             onClick={() => setActive(nav.title)}
           >
             <Link to={nav.id === "notifications" ? "/notifications" : `#${nav.id}`}>
-    {nav.title}
-  </Link>
-    
+              {nav.title}
+            </Link>
           </li>
         ))}
-        
+
+        {/* Conditionally render the Logout button if the user is logged in */}
+        {storedIsLoggedIn && (
+          <li
+            className="font-poppins font-normal cursor-pointer text-white"
+            onClick={handleLogout}
+          >
+            Logout
+          </li>
+        )}
       </ul>
 
+      {/* Mobile View */}
       <div className="sm:hidden flex flex-1 justify-end items-center">
         <img
           src={toggle ? close : menu}
@@ -53,14 +71,24 @@ const Navbar = () => {
                 } ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}`}
                 onClick={() => setActive(nav.title)}
               >
-                <Link to={`#${nav.id}`}>{nav.title}</Link> {/* Use Link here */}
+                <Link to={`#${nav.id}`}>{nav.title}</Link>
               </li>
             ))}
-            
+
             {/* Notification link in mobile view */}
             <li className="font-poppins font-medium cursor-pointer text-[16px] text-white mb-4">
-              <Link to="/notifications">Notifications</Link> {/* Correct Link usage */}
+              <Link to="/notifications">Notifications</Link>
             </li>
+
+            {/* Conditionally render the Logout button in mobile view */}
+            {storedIsLoggedIn && (
+              <li
+                className="font-poppins font-medium cursor-pointer text-[16px] text-white mb-4"
+                onClick={handleLogout}
+              >
+                Logout
+              </li>
+            )}
           </ul>
         </div>
       </div>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
-import { set, ref, get } from 'firebase/database'; // Import Firebase methods
-import { database } from '../firebase'; // Import your Firebase setup
+import { set, ref, get } from 'firebase/database';
+import { database } from '../firebase';
 import './Admin.css';
 
 const Admin = () => {
@@ -20,7 +20,7 @@ const Admin = () => {
             try {
                 const response = await axios.get("https://codehub-2fd81-default-rtdb.firebaseio.com/tasks.json");
                 const fetchedData = response.data;
-        
+
                 if (fetchedData) {
                     const formattedData = await Promise.all(
                         Object.keys(fetchedData).map(async (key) => {
@@ -44,7 +44,7 @@ const Admin = () => {
                     // Calculate remaining time
                     const initialCountdowns = formattedData.reduce((acc, task) => {
                         const elapsedTime = Math.floor((Date.now() - task.timestamp) / 1000);
-                        const remainingTime = Math.max(task.durationInSeconds - elapsedTime, 0); // Make sure it's non-negative
+                        const remainingTime = Math.max(task.durationInSeconds - elapsedTime, 0);
                         acc[task.id] = remainingTime;
                         return acc;
                     }, {});
@@ -60,7 +60,6 @@ const Admin = () => {
             }
         };
         
-
         fetchData();
     }, []);
 
@@ -71,7 +70,7 @@ const Admin = () => {
         }));
     };
 
-    const handleSendClick = (email, id, teamName, duration) => {
+    const handleSendClick = (email, id, teamName, durationInSeconds) => {
         const ipAddress = ipAddresses[id];
 
         if (!ipAddress) {
@@ -103,7 +102,7 @@ const Admin = () => {
             // Reset countdown after sending the IP address
             setCountdown((prev) => ({
                 ...prev,
-                [id]: duration * 60 // Set countdown in minutes (duration in seconds from Firebase)
+                [id]: durationInSeconds // Set countdown in seconds from Firebase
             }));
 
             const taskRef = ref(database, 'tasks/' + id);
@@ -112,7 +111,7 @@ const Admin = () => {
                 ipAddress,
                 adminEmail: email,
                 timestamp: Date.now(), // This adds the timestamp
-                durationInSeconds: duration * 60
+                durationInSeconds
             })
             .then(() => {
                 console.log("Task data saved to Firebase successfully");
@@ -154,8 +153,8 @@ const Admin = () => {
     
         return () => clearInterval(intervalId);
     }, []);
+    
     const formatTime = (seconds) => {
-        // Ensure the seconds is a valid number and is not NaN
         if (isNaN(seconds) || seconds <= 0) return 'Done';
         const hours = Math.floor(seconds / 3600);
         const minutes = Math.floor((seconds % 3600) / 60);
@@ -182,10 +181,9 @@ const Admin = () => {
                                 <div className="record-details font-bold text-white">
                                     <label>Team Name: {item.teamName}</label>
                                     <p>Instance Type: {item.instanceType}</p>
-                                    <p>Duration: {item.durationInHours} hours</p>
+                                    <p>Duration: {item.durationInSeconds / 3600} hours</p>
                                 </div>
 
-                                {/* Render "Show Members" button only if there are team members */}
                                 {item.members && item.members.length > 0 && (
                                     <button onClick={() => handleShowMembers(item.members)} className="show-members-button bg-blue-gradient font-bold rounded-full">
                                         Show Members
@@ -211,7 +209,7 @@ const Admin = () => {
                                             />
                                             <button 
                                                 className="ip-send font-bold bg-blue-gradient text-black rounded p-2"
-                                                onClick={() => handleSendClick(item.email, item.id, item.teamName, item.durationInHours)}
+                                                onClick={() => handleSendClick(item.email, item.id, item.teamName, item.durationInSeconds)}
                                             >
                                                 Send
                                             </button>

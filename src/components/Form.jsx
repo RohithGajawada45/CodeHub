@@ -8,9 +8,9 @@ function Form() {
     const { teamSize, instanceType, durationInHours } = location.state || {}; 
     const [teamName, setTeamName] = useState(''); 
     const navigate = useNavigate();
-    const [email,setEmail]=useState('');
+    const [email, setEmail] = useState('');
     const [formData, setFormData] = useState({
-        fields: Array.from({ length:teamSize }), 
+        fields: Array.from({ length: teamSize }), 
     });
 
     const handleInputChange = (index, e) => {
@@ -26,9 +26,9 @@ function Form() {
         setTeamName(e.target.value);
     };
 
-    const handleEmailChange = (e) =>{
+    const handleEmailChange = (e) => {
         setEmail(e.target.value);
-    }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -48,10 +48,6 @@ function Form() {
         // Convert durationInHours to duration in seconds
         const durationInSeconds = hours * 3600;
     
-        // Debugging: Check the values of hours and durationInSeconds
-        console.log("Duration in Hours:", hours);
-        console.log("Duration in Seconds:", durationInSeconds);
-    
         const dataToSubmit = {
             teamName,
             email,
@@ -64,21 +60,20 @@ function Form() {
     
         // Submit the data to Firebase Realtime Database
         axios.post("https://codehub-2fd81-default-rtdb.firebaseio.com/tasks.json", dataToSubmit)
-    .then((response) => {
-        console.log("Firebase Response: ", response);
-        alert(`Form submitted successfully! Team Name: ${teamName}, Team Size: ${teamSize}, Instance Type: ${instanceType}, Duration: ${durationInHours}`);
-        navigate("/");
-    })
-    .catch((error) => {
-        console.error("There was an error submitting the form!", error);
-    });
-
+            .then((response) => {
+                console.log("Firebase Response: ", response);
+                alert(`Form submitted successfully! Team Name: ${teamName}, Team Size: ${teamSize}, Instance Type: ${instanceType}, Duration: ${durationInHours}`);
+                navigate("/");
+            })
+            .catch((error) => {
+                console.error("There was an error submitting the form!", error);
+            });
     };    
 
     return (
         <div className="form-wrapper bg-discount-gradient">
             <div className="form-containers bg-black-gradient-2 border border-white/20">
-            <h2 className="text-gradient font-bold text-xl block">Team Form</h2>
+                <h2 className="text-gradient font-bold text-xl block">Team Form</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label className="text-gradient font-bold text-lg mb-2 block">Team Name:</label>
@@ -100,7 +95,6 @@ function Form() {
                             required 
                         />
                     </div>
-                    
                     
                     {formData.fields.map((field, index) => (
                         <div className="form-group" key={index}>

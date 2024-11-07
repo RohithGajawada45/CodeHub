@@ -77,7 +77,7 @@ function Form() {
 
     return (
         <div className="form-wrapper bg-discount-gradient">
-            <div className="form-container bg-black-gradient-2 border border-white/20">
+            <div className="form-containers bg-black-gradient-2 border border-white/20">
             <h2 className="text-gradient font-bold text-xl block">Team Form</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">

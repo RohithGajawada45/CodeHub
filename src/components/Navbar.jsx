@@ -22,14 +22,13 @@ const Navbar = () => {
             } ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
             onClick={() => setActive(nav.title)}
           >
-            <Link to={`#${nav.id}`}>{nav.title}</Link> {/* Use Link here */}
+            <Link to={nav.id === "notifications" ? "/notifications" : `#${nav.id}`}>
+    {nav.title}
+  </Link>
+    
           </li>
         ))}
         
-        {/* Notification link */}
-        <li className="font-poppins font-normal cursor-pointer text-[16px] text-white mr-10">
-          <Link to="/notifications">Notifications</Link> {/* Correct Link usage */}
-        </li>
       </ul>
 
       <div className="sm:hidden flex flex-1 justify-end items-center">

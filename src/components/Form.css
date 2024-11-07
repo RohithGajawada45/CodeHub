@@ -12,24 +12,13 @@ body {
     height: 100vh; /* Full height for vertical centering */
 }
 
-.form-container {
+.form-containers {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 400px; /* Increased width of the form */
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
+    width: 400px; 
+    display:flex;
     display: block;
     margin-bottom: 5px;
 }

@@ -56,62 +56,30 @@ const UserNotification = ({ email }) => {
     }, 1000); // Update countdown every second
   };
 
-  const styles = {
-    container: {
-      padding: '20px',
-      backgroundColor: '#f4f4f9',
-      borderRadius: '8px',
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-      maxWidth: '400px',
-      margin: '0 auto',
-      fontFamily: 'Arial, sans-serif',
-    },
-    heading: {
-      fontSize: '24px',
-      color: '#333',
-      marginBottom: '10px',
-    },
-    emailText: {
-      fontSize: '18px',
-      color: '#555',
-      marginBottom: '20px',
-    },
-    additionalInfo: {
-      fontSize: '16px',
-      color: '#777',
-    },
-    ipAddress: {
-      fontSize: '16px',
-      color: '#333',
-      marginBottom: '10px',
-    },
-    countdown: {
-      fontSize: '18px',
-      color: '#d9534f', // Red color for countdown
-      fontWeight: 'bold',
-    },
-  };
-
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Welcome to Notifications</h2>
-      <p style={styles.emailText}>Your email: {email}</p>
+    <div className="bg-discount-gradient min-h-screen flex items-center justify-center p-4">
+      <div className="bg-black-gradient-2 border border-white/20 p-6 rounded-lg shadow-xl max-w-md w-full">
+        <h2 className="text-gradient font-bold text-xl text-center mb-4">Welcome to Notifications</h2>
+        <p className="text-white text-center font-semibold mb-4">Your email: {email}</p>
 
-      {ipAddress ? (
-        <div style={styles.ipAddress}>
-          <p>Your IP Address: {ipAddress}</p>
-        </div>
-      ) : (
-        <p style={styles.additionalInfo}>No IP address found for your account.</p>
-      )}
+        {ipAddress ? (
+          <div className="text-gradient mb-4">
+            <p className="text-white">Your IP Address:</p>
+            <p className="text-white">{ipAddress}</p>
+          </div>
+        ) : (
+          <p className="text-gradient text-white text-center font-bold text-lg mb-4">No IP address found for your account.</p>
+        )}
 
-      {/* {timeLeft ? (
-        <div style={styles.countdown}>
-          <p>Time Left: {timeLeft}</p>
-        </div>
-      ) : (
-        <p style={styles.additionalInfo}>Loading time countdown...</p>
-      )} */}
+        {/* Countdown display */}
+        {timeLeft ? (
+          <div className="text-center mt-4">
+            <p className="text-red-500 font-bold">{timeLeft}</p>
+          </div>
+        ) : (
+          <p className="text-center text-white">Loading time countdown...</p>
+        )}
+      </div>
     </div>
   );
 };
